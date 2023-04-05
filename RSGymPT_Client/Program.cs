@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utility;
 
 namespace RSGymPT_Client
 {
@@ -10,6 +11,11 @@ namespace RSGymPT_Client
     {
         static void Main(string[] args)
         {
+
+            Utility.Utility.SetUnicodeConsole();
+
+
+            Utility.Utility.TerminateConsole();
         }
     }
 }

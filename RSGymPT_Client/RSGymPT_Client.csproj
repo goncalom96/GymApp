@@ -61,6 +61,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RSGymPT_DAL\RSGymPT_DAL.csproj">
+      <Project>{536175ad-e0e4-4e13-83a0-b4c21c9d2145}</Project>
+      <Name>RSGymPT_DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Utility\Utility.csproj">
       <Project>{1f38f00d-da67-4c32-a440-beb24c63aa46}</Project>
       <Name>Utility</Name>

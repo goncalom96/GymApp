@@ -51,13 +51,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Database\RSGymDBContext.cs" />
+    <Compile Include="Model\Client.cs" />
+    <Compile Include="Model\PersonalTrainer.cs" />
+    <Compile Include="Model\Location.cs" />
+    <Compile Include="Model\Request.cs" />
+    <Compile Include="Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RSGymPT_Client\RSGymPT_Client.csproj">
-      <Project>{a41c258a-d0a7-4464-87ed-460f85e1c15b}</Project>
-      <Name>RSGymPT_Client</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Utility\Utility.csproj">
       <Project>{1f38f00d-da67-4c32-a440-beb24c63aa46}</Project>
       <Name>Utility</Name>
@@ -67,9 +69,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
