@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RSGymPT_DAL.Model
 {
-    internal class Location
+    public class Location
     {
 
         // Tabela 1 (Request)
@@ -18,11 +18,10 @@ namespace RSGymPT_DAL.Model
         // PK
         public int LocationID { get; set; }
 
-        // ToDo Ultimos 3 devem ser opcionais
         [Display(Name = "Postal code")]
         [Required(ErrorMessage = "Postal code is required.")]
         [MaxLength(7, ErrorMessage = "7 character limit.")]
-        public int PostalCode { get; set; }
+        public string PostalCode { get; set; }
 
         [Required(ErrorMessage = "City is required.")]
         [MaxLength(100, ErrorMessage = "100 character limit.")]

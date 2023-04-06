@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Utility;
+using AppUtility;
 
 namespace RSGymPT_Client
 {
@@ -12,10 +12,21 @@ namespace RSGymPT_Client
         static void Main(string[] args)
         {
 
-            Utility.Utility.SetUnicodeConsole();
+            Utility.SetUnicodeConsole();
+
+            try
+            {
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
 
 
-            Utility.Utility.TerminateConsole();
+            Utility.TerminateConsole();
+
         }
     }
 }

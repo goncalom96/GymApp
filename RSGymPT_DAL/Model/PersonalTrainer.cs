@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace RSGymPT_DAL.Model
 {
-    internal class PersonalTrainer
+    public class PersonalTrainer
     {
-
 
         // Tabela 1 (Request)
         // Tabela 1 (Client)
@@ -34,7 +33,7 @@ namespace RSGymPT_DAL.Model
 
         [Required(ErrorMessage = "NIF is Required.")]
         [MaxLength(9, ErrorMessage = "9 character limit.")]
-        public int NIF { get; set; }
+        public string NIF { get; set; }
 
         [Required(ErrorMessage = "Address is required.")]
         [MaxLength(100, ErrorMessage = "100 character limit.")]
@@ -44,7 +43,7 @@ namespace RSGymPT_DAL.Model
         [Required(ErrorMessage = "Phone number is required.")]
         [Phone]
         [MaxLength(9, ErrorMessage = "9 character limit.")]
-        public int PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Email address is required.")]
         [EmailAddress]
@@ -54,7 +53,7 @@ namespace RSGymPT_DAL.Model
 
         #region Navigation Properties
 
-        public virtual Location PostalCode { get; set; }
+        public virtual Location Location { get; set; }
         public virtual ICollection<Client> Clients { get; set; }
         public virtual ICollection<Request> Requests { get; set; }
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RSGymPT_DAL.Model
 {
-    internal class User
+    public class User
     {
 
         #region Enums
@@ -29,7 +29,7 @@ namespace RSGymPT_DAL.Model
         [MaxLength(100, ErrorMessage = "100 character limit.")]
         public string UserName { get; set; }
 
-        [Display(Name="User Code")]
+        [Display(Name="User code")]
         [Required(ErrorMessage = "User code is required.")]
         [StringLength(6, MinimumLength = 4, ErrorMessage = "4 to 6 character limit")]
         public string UserCode { get; set; }

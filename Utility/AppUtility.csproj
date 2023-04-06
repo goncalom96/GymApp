@@ -7,8 +7,8 @@
     <ProjectGuid>{1F38F00D-DA67-4C32-A440-BEB24C63AA46}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Utility</RootNamespace>
-    <AssemblyName>Utility</AssemblyName>
+    <RootNamespace>AppUtility</RootNamespace>
+    <AssemblyName>AppUtility</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSGymPT_Client", "RSGymPT_C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSGymPT_DAL", "RSGymPT_DAL\RSGymPT_DAL.csproj", "{536175AD-E0E4-4E13-83A0-B4C21C9D2145}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility", "Utility\Utility.csproj", "{1F38F00D-DA67-4C32-A440-BEB24C63AA46}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppUtility", "Utility\AppUtility.csproj", "{1F38F00D-DA67-4C32-A440-BEB24C63AA46}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

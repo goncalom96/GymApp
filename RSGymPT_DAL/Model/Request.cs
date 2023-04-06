@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using static RSGymPT_DAL.Model.User;
 
 namespace RSGymPT_DAL.Model
 {
-    internal class Request
+    public class Request
     {
 
         // Tabela N (Client)
@@ -37,9 +38,11 @@ namespace RSGymPT_DAL.Model
 
 
         [Required(ErrorMessage = "Date is required.")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime Date { get; set; }
 
         [Required(ErrorMessage = "Hour is required.")]
+        [Timestamp]
         public DateTime Hour { get; set; }
 
         [Display(Name = "Status")]

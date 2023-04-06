@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RSGymPT_DAL.Model
 {
-    internal class Client
+    public class Client
     {
 
         // Tabela 1 (Request)
@@ -29,9 +29,14 @@ namespace RSGymPT_DAL.Model
         [MaxLength(100, ErrorMessage = "100 character limit.")]
         public string Name { get; set; }
 
+        [Display(Name = "Date of birth")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
+        [Required(ErrorMessage = "Date of birth is required.")]
+        public DateTime DateBirth { get; set; }
+
         [Required(ErrorMessage = "NIF is required.")]
         [MaxLength(9, ErrorMessage = "9 character limit.")]
-        public int NIF { get; set; }
+        public string NIF { get; set; }
 
         [Required(ErrorMessage = "Address is required.")]
         [MaxLength(100, ErrorMessage = "100 character limit.")]
@@ -40,7 +45,7 @@ namespace RSGymPT_DAL.Model
         [Display(Name = "Phone number")]
         [Required(ErrorMessage = "Phone number is required.")]
         [MaxLength(9, ErrorMessage = "9 character limit.")]
-        public int PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
         
         [Required(ErrorMessage = "Email address is required.")]
         [MaxLength(100, ErrorMessage = "100 character limit.")]
@@ -57,7 +62,7 @@ namespace RSGymPT_DAL.Model
 
         #region Navigation Properties
 
-        public virtual Location PostalCode { get; set; }
+        public virtual Location Location { get; set; }
         public virtual PersonalTrainer PersonalTrainer { get; set; }
         public virtual ICollection<Request> Requests { get; set; }
 

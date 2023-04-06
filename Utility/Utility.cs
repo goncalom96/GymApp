@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace Utility
+namespace AppUtility
 {
     public static class Utility
     {

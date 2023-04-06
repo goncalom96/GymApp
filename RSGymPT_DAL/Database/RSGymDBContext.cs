@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Policy;
+using RSGymPT_DAL.Model;
 
 namespace RSGymPT_DAL.Database
 {
-    internal class RSGymDBContext : DbContext
+    public class RSGymDBContext : DbContext
     {
         #region Constructor
 
@@ -29,11 +30,14 @@ namespace RSGymPT_DAL.Database
         #endregion
 
         #region dbSets
-        // ToDo: Completar
-        /*
-        public DbSet<Publisher> Publisher { get; set; }
-        public DbSet<Book> Book { get; set; }
-        */
+
+        public DbSet<User> User { get; set; }
+        public DbSet<Client> Client { get; set; }
+        public DbSet<PersonalTrainer> PersonalTrainer { get; set; }
+        public DbSet<Request> Request { get; set; }
+        public DbSet<Location> Location { get; set; }
+
+
         #endregion
     }
 }
