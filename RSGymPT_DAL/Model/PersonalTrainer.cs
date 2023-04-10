@@ -47,6 +47,7 @@ namespace RSGymPT_DAL.Model
 
         [Required(ErrorMessage = "Email address is required.")]
         [EmailAddress]
+        [MaxLength(320, ErrorMessage = "320 character limit.")]
         public string Email { get; set; }
 
         #endregion

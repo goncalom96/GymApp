@@ -44,11 +44,13 @@ namespace RSGymPT_DAL.Model
 
         [Display(Name = "Phone number")]
         [Required(ErrorMessage = "Phone number is required.")]
+        [Phone]
         [MaxLength(9, ErrorMessage = "9 character limit.")]
         public string PhoneNumber { get; set; }
         
         [Required(ErrorMessage = "Email address is required.")]
-        [MaxLength(100, ErrorMessage = "100 character limit.")]
+        [EmailAddress]
+        [MaxLength(320, ErrorMessage = "320 character limit.")]
         public string Email { get; set; }
 
         [MaxLength(255, ErrorMessage = "255 character limit.")]
