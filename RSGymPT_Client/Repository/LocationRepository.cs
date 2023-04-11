@@ -16,6 +16,12 @@ namespace RSGymPT_Client.Repository
 
             ICollection<Location> locations = new Collection<Location>
             {
+                new Location { PostalCode = "1700-306", City = "Lisboa"},
+                new Location { PostalCode = "1500-503 ", City = "Lisboa"},
+                new Location { PostalCode = "4000-996" , City = "Porto"},
+                new Location { PostalCode = "4049-019" , City = "Porto"},
+                new Location { PostalCode = "4700-442", City = "Braga"},
+                new Location { PostalCode = "2520-400", City = "Peniche"},
                 new Location { PostalCode = postalCode, City = city}
             };
 
@@ -27,7 +33,7 @@ namespace RSGymPT_Client.Repository
 
         }
 
-        public static void ListLocations(ICollection<Location> locations)
+        public static void ListLocations()
         {
 
             // Locations ordenadas por cidades 

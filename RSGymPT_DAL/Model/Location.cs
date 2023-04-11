@@ -20,7 +20,7 @@ namespace RSGymPT_DAL.Model
 
         [Display(Name = "Postal code")]
         [Required(ErrorMessage = "Postal code is required.")]
-        [MaxLength(7, ErrorMessage = "7 character limit.")]
+        [MaxLength(8, ErrorMessage = "8 character limit.")]
         public string PostalCode { get; set; }
 
         [Required(ErrorMessage = "City is required.")]

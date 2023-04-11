@@ -27,7 +27,7 @@ namespace RSGymPT_DAL.Model
 
         [Required(ErrorMessage = "Username is required.")]
         [MaxLength(100, ErrorMessage = "100 character limit.")]
-        public string UserName { get; set; }
+        public string Username { get; set; }
 
         [Display(Name="User code")]
         [Required(ErrorMessage = "User code is required.")]

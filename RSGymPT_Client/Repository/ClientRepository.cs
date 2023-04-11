@@ -19,9 +19,9 @@ namespace RSGymPT_Client.Repository
 
             ICollection<Client> clients = new Collection<Client>
             {
-                new Client { LocationID = 1, PersonalTrainerID = 1, Name = "client01", DateBirth = new DateTime (1996, 02, 26), NIF = "214456389", Address = "Rua do Client01", PhoneNumber = "919991872", Email = "client01@hotmail.com", Comments = "test1", Active = true},
-                new Client { LocationID = 2, PersonalTrainerID = 2, Name = "client02", DateBirth = new DateTime (1990, 10, 02), NIF = "213459781", Address = "Rua do Client02", PhoneNumber = "964321942", Email = "client02@hotmail.com", Active = true},
-                new Client { LocationID = 1, PersonalTrainerID = 1, Name = "client03", DateBirth = new DateTime (1988, 07, 22), NIF = "217458786", Address = "Rua do Client03", PhoneNumber = "931662873", Email = "client03@hotmail.com", Comments = "test3", Active = false},
+                new Client { LocationID = 2, PersonalTrainerID = 1, Name = "client01", DateBirth = new DateTime (1996, 02, 26), NIF = "214456389", Address = "Rua do Client01", PhoneNumber = "919991872", Email = "client01@hotmail.com", Comments = "test1", Active = true},
+                new Client { LocationID = 3, PersonalTrainerID = 2, Name = "client02", DateBirth = new DateTime (1990, 10, 02), NIF = "213459781", Address = "Rua do Client02", PhoneNumber = "964321942", Email = "client02@hotmail.com", Active = true},
+                new Client { LocationID = 6, PersonalTrainerID = 1, Name = "client03", DateBirth = new DateTime (1988, 07, 22), NIF = "217458786", Address = "Rua do Client03", PhoneNumber = "931662873", Email = "client03@hotmail.com", Comments = "test3", Active = false},
                 new Client { LocationID = locationID, PersonalTrainerID = personalTrainerID, Name = name, DateBirth = dateBirth, NIF = nif, Address = address, PhoneNumber = phoneNumber, Email = email, Comments = comments, Active = active}
             };
 
@@ -96,7 +96,7 @@ namespace RSGymPT_Client.Repository
 
         }
 
-        public static void ListClients(ICollection<Client> clients)
+        public static void ListClients()
         {
             // Clientes ativos ordenados pelo nome
             using (var db = new RSGymDBContext())
