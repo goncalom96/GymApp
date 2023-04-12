@@ -42,7 +42,7 @@ namespace RSGymPT_DAL.Model
         public DateTime Date { get; set; }
 
         [Required(ErrorMessage = "Hour is required.")]
-        [Timestamp]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:t}")]
         public DateTime Hour { get; set; }
 
         [Display(Name = "Status")]
@@ -51,6 +51,7 @@ namespace RSGymPT_DAL.Model
         public EnumStatus? Status { get; set; }
 
         [MaxLength(255, ErrorMessage = "255 character limit.")]
+        [DisplayFormat(NullDisplayText = "-")]
         public string Comments { get; set; }
 
         #endregion

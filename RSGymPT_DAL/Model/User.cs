@@ -40,15 +40,10 @@ namespace RSGymPT_DAL.Model
 
         [Display(Name = "Profile")]
         [Required(ErrorMessage = "Profile is required.")]
-        [EnumDataType(typeof(EnumProfile?))]
-        public EnumProfile? Profile { get; set; }
+        [EnumDataType(typeof(EnumProfile))]
+        public EnumProfile Profile { get; set; }
 
         #endregion
 
-
-        #region Navigation Properties
-
-
-        #endregion
     }
 }

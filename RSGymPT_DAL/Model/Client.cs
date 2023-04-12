@@ -27,6 +27,7 @@ namespace RSGymPT_DAL.Model
 
         [Required(ErrorMessage = "Name is required.")]
         [MaxLength(100, ErrorMessage = "100 character limit.")]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{1,100}$", ErrorMessage = "Numbers and special characters are not allowed in the name.")]
         public string Name { get; set; }
 
         [Display(Name = "Date of birth")]
@@ -35,6 +36,7 @@ namespace RSGymPT_DAL.Model
         public DateTime DateBirth { get; set; }
 
         [Required(ErrorMessage = "NIF is required.")]
+        [RegularExpression(@"([0-9]+)", ErrorMessage = "Must be a Number.")]
         [MaxLength(9, ErrorMessage = "9 character limit.")]
         public string NIF { get; set; }
 
@@ -44,16 +46,18 @@ namespace RSGymPT_DAL.Model
 
         [Display(Name = "Phone number")]
         [Required(ErrorMessage = "Phone number is required.")]
-        [Phone]
+        [RegularExpression(@"([0-9]+)", ErrorMessage = "Must be a Number.")]
         [MaxLength(9, ErrorMessage = "9 character limit.")]
+        //[Phone]
         public string PhoneNumber { get; set; }
         
         [Required(ErrorMessage = "Email address is required.")]
-        [EmailAddress]
-        [MaxLength(320, ErrorMessage = "320 character limit.")]
+        [EmailAddress(ErrorMessage = "Invalid email address.")]
+        [StringLength(100, MinimumLength = 5, ErrorMessage = "5 to 100 character limit")]
         public string Email { get; set; }
 
         [MaxLength(255, ErrorMessage = "255 character limit.")]
+        [DisplayFormat(NullDisplayText = "-")]
         public string Comments { get; set; }
 
         [Required]
