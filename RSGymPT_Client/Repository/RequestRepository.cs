@@ -37,7 +37,6 @@ namespace RSGymPT_Client.Repository
             Console.Write("Comments: ");
             string comments = Console.ReadLine();
 
-            Console.Clear();
 
             using (var db = new RSGymDBContext())
             {
@@ -89,6 +88,7 @@ namespace RSGymPT_Client.Repository
             }
 
         }
+
 
     }
 }

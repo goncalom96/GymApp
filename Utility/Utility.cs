@@ -9,6 +9,16 @@ namespace AppUtility
 {
     public static class Utility
     {
+
+        #region Constants
+
+        public const string MsgBackMainMenu = "\nPress any key to return to the main menu.";
+        public const string MsgGoForward = "\nPress any key to move forward.";
+        public const string MsgOperationNotFound = "\nNon-existing operation.";
+        public const string MsgOperationWithNumbers = "\nRemember that you can only answer with numbers.";
+
+        #endregion
+
         // Encoding da consola, por exemplo, preparar a consola para receber carateres especiais
         public static void SetUnicodeConsole()
         {
@@ -53,7 +63,7 @@ namespace AppUtility
         {
 
             Console.WriteLine("\n\nPrime qualquer tecla para saíres.");
-            Console.ReadKey(); 
+            Console.ReadKey();
             Console.Clear();
 
         }
@@ -65,13 +75,31 @@ namespace AppUtility
 
         }
 
+        public static void CleanConsole(string value)
+        {
+            Console.WriteLine(value);
+            Console.ReadKey();
+            Console.Clear();
+        }
+
+        public static void OperationNotFoundAlert()
+        {
+            Console.WriteLine(MsgOperationNotFound);
+        }
+
+        public static void OperationWithNumbers()
+        {
+            Console.WriteLine(MsgOperationWithNumbers);
+        }
+
+
         public static bool ValidateNumber0(double value)
         {
             // Criar o método ValidateNumber0() em Utility:
             // Recebe 1 valor double
             // Devolve true se o número recebido for 0
             // Testem para ver se funciona
-                // Console.WriteLine(Utility.ValidateNumber0(0));
+            // Console.WriteLine(Utility.ValidateNumber0(0));
 
             #region v1: Funcional, mas pouco otimizado
             /*
@@ -96,31 +124,31 @@ namespace AppUtility
             #region v3: Versão otimizada
 
             return value == 0;
-            
+
             #endregion
 
 
         }
 
-            /*
-        public static bool ValidateNumberDouble(string valueString)
-        {
+        /*
+    public static bool ValidateNumberDouble(string valueString)
+    {
 
-            bool tryParse = false;
-            tryParse = double.TryParse(valueString, out double valueDouble);
+        bool tryParse = false;
+        tryParse = double.TryParse(valueString, out double valueDouble);
 
-            return valueDouble != 0;
-        }
-        */
+        return valueDouble != 0;
+    }
+    */
 
-            /*
-        public static bool DoubleValidation(string valueString)
-        {
+        /*
+    public static bool DoubleValidation(string valueString)
+    {
 
-            return double.TryParse(valueString, out double valueDouble) && valueDouble != 0;
+        return double.TryParse(valueString, out double valueDouble) && valueDouble != 0;
 
-        }
-        */
+    }
+    */
 
         public static bool ValidateNumberDouble(string valueString)
         {

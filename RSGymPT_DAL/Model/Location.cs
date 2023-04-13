@@ -21,7 +21,7 @@ namespace RSGymPT_DAL.Model
         [Display(Name = "Postal code")]
         [Required(ErrorMessage = "Postal code is required.")]
         [RegularExpression(@"[0-9]{4}-[0-9]{3}", ErrorMessage = "Must be a Number (Example: 2500-231).")]
-        [MaxLength(9, ErrorMessage = "9 character limit.")]
+        [MaxLength(9, ErrorMessage = "8 character limit.")]
         public string PostalCode { get; set; }
 
         [Required(ErrorMessage = "City is required.")]

@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using AppUtility;
 using RSGymPT_DAL.Database;
 using RSGymPT_DAL.Model;
-using AppUtility;
-using System.Collections.ObjectModel;
-using static RSGymPT_DAL.Model.User;
 
 namespace RSGymPT_Client.Repository
 {
     static class UserRepository
     {
 
+        #region Features
         public static void CreateUser()
         {
 
@@ -35,22 +33,18 @@ namespace RSGymPT_Client.Repository
                 Console.Write("Password: ");
                 string password = Console.ReadLine();
 
-                Console.Write($"Profile Options:\n");
-                foreach (var item in Enum.GetValues(typeof(User.EnumProfile)))
-                {
-                    Console.Write($"{(int)item} - {item}\n");
-                }
+                Console.Write($"Profile (1 - admin | 2 - colab): ");
                 User.EnumProfile profile = (User.EnumProfile)Convert.ToInt16(Console.ReadLine());
 
-                Console.Clear();
 
                 using (var db = new RSGymDBContext())
                 {
 
-                    var result = db.User.FirstOrDefault(u => u.Username == username || u.UserCode == userCode);
+                    var result1 = db.User.FirstOrDefault(u => u.Username == username);
 
+                    var result2 = db.User.FirstOrDefault(u => u.UserCode == userCode);
 
-                    if (result == null)
+                    if (result1 == null && result2 == null)
                     {
                         newUserSucceed = true;
 
@@ -63,22 +57,24 @@ namespace RSGymPT_Client.Repository
                         db.SaveChanges();
 
                         Utility.WriteTitle("User - New User");
-                        Console.WriteLine("User created with succeed!");
+                        Console.WriteLine("\nUser created with succeed!");
+                        Utility.TerminateConsole();
                     }
-                    else if (result.Username == username && result.UserCode == userCode)
+                    else if (result1.Username != null && result2.UserCode != null) // ToDo: Está a dar erro
                     {
-                        Utility.WriteTitle("User - Error");
-                        Console.WriteLine("You need to choose another Username and UserCode");
+                        Console.WriteLine("\nYou need to choose another Username and UserCode");
+                        Utility.TerminateConsole();
+
                     }
-                    else if (result.Username == username)
+                    else if (result1.Username != null)
                     {
-                        Utility.WriteTitle("User - Error");
-                        Console.WriteLine("You need to choose another Username");
+                        Console.WriteLine("\nYou need to choose another Username");
+                        Utility.TerminateConsole();
                     }
                     else
                     {
-                        Utility.WriteTitle("User - Error");
-                        Console.WriteLine("You need to choose another UserCode");
+                        Console.WriteLine("\nYou need to choose another UserCode");
+                        Utility.TerminateConsole();
                     }
 
                 }
@@ -120,7 +116,6 @@ namespace RSGymPT_Client.Repository
                 Console.Write("New password: ");
                 string password = Console.ReadLine();
 
-                Console.Clear();
 
                 using (var db = new RSGymDBContext())
                 {
@@ -150,6 +145,8 @@ namespace RSGymPT_Client.Repository
             } while (!updateSucceed);
 
         }
+
+        #endregion
 
         #region Starting Users
         public static void StartingUsers()

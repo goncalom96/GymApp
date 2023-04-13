@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AppUtility;
+using RSGymPT.Classes;
 using RSGymPT_Client.Repository;
 using RSGymPT_DAL.Database;
 using RSGymPT_DAL.Model;
@@ -19,18 +21,46 @@ namespace RSGymPT_Client
 
             try
             {
+                /*
+                #region Starting Data
 
+                
                 UserRepository.StartingUsers();
-
-                //UserRepository.CreateUser();
-
                 UserRepository.ListUsers();
+                
+                Utility.BlockSeparator("\n");
+
+                LocationRepository.StartingLocations();
+                LocationRepository.ListLocations();
+                
+                Utility.BlockSeparator("\n");
+
+                PersonalTrainerRepository.StartingPersonalTrainers();
+                PersonalTrainerRepository.ListPersonalTrainers();
+
+                Utility.BlockSeparator("\n");
+
+                ClientRepository.StartingClients();
+                ClientRepository.ListClients();
+
+                Utility.TerminateConsole();
+
+                #endregion
+                */
+
+                LoginMenu.FirstMenu();
 
             }
-            catch (Exception)
+            catch (DbEntityValidationException ex)
             {
 
-                throw;
+                foreach (var entityValidationErrors in ex.EntityValidationErrors)
+                {
+                    foreach (var validationError in entityValidationErrors.ValidationErrors)
+                    {
+                        Console.WriteLine("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                    }
+                }
             }
 
 
