@@ -13,6 +13,8 @@ namespace RSGymPT.Classes
         public static void FirstMenu()
         {
 
+            Console.Clear();
+
             int value;
 
             do

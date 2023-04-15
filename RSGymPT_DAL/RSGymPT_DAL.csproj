@@ -56,6 +56,10 @@
     <Compile Include="Migrations\202304121515121_M01Initial.designer.cs">
       <DependentUpon>202304121515121_M01Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202304152116071_M02_UpField_DDC.cs" />
+    <Compile Include="Migrations\202304152116071_M02_UpField_DDC.designer.cs">
+      <DependentUpon>202304152116071_M02_UpField_DDC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Client.cs" />
     <Compile Include="Model\PersonalTrainer.cs" />
@@ -80,6 +84,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202304121515121_M01Initial.resx">
       <DependentUpon>202304121515121_M01Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304152116071_M02_UpField_DDC.resx">
+      <DependentUpon>202304152116071_M02_UpField_DDC.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Net;
-using System.Xml.Linq;
 using AppUtility;
+using RSGymPT_Client.InputValidation;
 using RSGymPT_DAL.Database;
 using RSGymPT_DAL.Model;
 
@@ -13,6 +12,7 @@ namespace RSGymPT_Client.Repository
     static class ClientRepository
     {
 
+        #region Features
         public static void CreateClient(User user)
         {
 
@@ -23,55 +23,56 @@ namespace RSGymPT_Client.Repository
             do
             {
 
-                Utility.WriteTitle("Client - New Client");
+                Utility.WriteTitle("Client - Create");
 
-                Console.Write("Name: ");
-                string name = Console.ReadLine();
+                string name = Validation.ValidateName();
 
-                Console.Write("Date Birth: ");
-                bool tryParseDateBirth = DateTime.TryParse(Console.ReadLine(), out DateTime dateBirth);
+                DateTime dateBirth = Validation.ValidateDateBirth();
 
-                Console.Write("NIF: ");
-                string nif = Console.ReadLine();
+                string nif = Validation.ValidateNIF();
 
-                Console.Write("Address: ");
-                string address = Console.ReadLine();
+                int locationID = Validation.ValidateLocationIntNumber();
 
-                Console.Write("Location: ");
-                bool tryParseLocation = Int16.TryParse(Console.ReadLine(), out Int16 locationID);
+                string address = Validation.ValidateAddress();
 
-                Console.Write("Phone number: ");
-                string phoneNumber = Console.ReadLine();
+                string phoneNumber = Validation.ValidatePhoneNumber();
 
-                Console.Write("Email: ");
-                string email = Console.ReadLine();
+                string email = Validation.ValidateEmail();
 
-                Console.Write("Comments: ");
-                string comments = Console.ReadLine();
-
-                Console.Write("Active: ");
-                bool tryParseActive = Boolean.TryParse(Console.ReadLine(), out Boolean active);
+                string comments = Validation.ValidateComments();
 
 
                 using (var db = new RSGymDBContext())
                 {
 
-                    var result = db.Client.FirstOrDefault(c => c.NIF == nif);
+                    var result1 = db.Client.FirstOrDefault(c => c.NIF == nif);
+
+                    var result2 = db.Location.FirstOrDefault(l => l.LocationID == locationID);
 
 
-                    if (result == null)
+                    if (result1 == null && result2 != null)
                     {
                         newClientSucceed = true;
 
                         ICollection<Client> clients = new Collection<Client>
                         {
-                            new Client { LocationID = locationID, Name = name, DateBirth = dateBirth, NIF = nif, Address = address, PhoneNumber = phoneNumber, Email = email, Comments = comments, Active = active}
+                            new Client { LocationID = locationID, Name = name, DateBirth = dateBirth, NIF = nif, Address = address, PhoneNumber = phoneNumber, Email = email, Comments = comments, Active = true}
                         };
 
                         db.Client.AddRange(clients);
                         db.SaveChanges();
 
                         Console.WriteLine("\n\nClient created with succeed!");
+                    }
+                    else if (result2 == null)
+                    {
+                        Console.WriteLine("\n\nThis location does not exist.");
+
+                        // Perguntar se quer adicionar?
+                        // LocationRepository.CreateLocation(user);
+
+                        Console.ReadKey();
+                        Console.Clear();
                     }
                     else
                     {
@@ -81,7 +82,6 @@ namespace RSGymPT_Client.Repository
                     }
 
                 }
-
 
             } while (!newClientSucceed);
 
@@ -99,53 +99,55 @@ namespace RSGymPT_Client.Repository
 
                 Utility.WriteTitle("Clients - Update");
 
-                Console.Write("Name: ");
+                Console.Write("Confirm Client Name: ");
                 string name = Console.ReadLine();
 
 
                 using (var db = new RSGymDBContext())
                 {
-                    var result = db.Client.FirstOrDefault(c => c.Name == name);
+                    var result1 = db.Client.FirstOrDefault(c => c.Name == name);
 
-                    if (result != null)
+                    if (result1 != null)
                     {
 
-                        clientUpdatedSucceed = true;
+                        Console.Clear();
 
                         Utility.WriteTitle("Clients - Update - New data");
 
-                        Console.Write("Name: ");
-                        string newName = Console.ReadLine();
+                        string newName = Validation.ValidateName();
 
-                        Console.Write("Location: ");
-                        bool tryParseLocation = Int16.TryParse(Console.ReadLine(), out Int16 locationID);
+                        DateTime dateBirth = Validation.ValidateDateBirth();
 
-                        Console.Write("Date Birth: ");
-                        bool tryParseDateBirth = DateTime.TryParse(Console.ReadLine(), out DateTime dateBirth);
+                        int locationID = Validation.ValidateLocationIntNumber();
 
-                        Console.Write("Address: ");
-                        string address = Console.ReadLine();
+                        string address = Validation.ValidateAddress();
 
-                        Console.Write("Phone number: ");
-                        string phoneNumber = Console.ReadLine();
+                        string phoneNumber = Validation.ValidatePhoneNumber();
 
-                        Console.Write("Email: ");
-                        string email = Console.ReadLine();
+                        string email = Validation.ValidateEmail();
 
-                        Console.Write("Comments: ");
-                        string comments = Console.ReadLine();
+                        string comments = Validation.ValidateComments();
 
-                        result.Name = newName;
-                        result.LocationID = locationID;
-                        result.DateBirth = dateBirth;
-                        result.Address = address;
-                        result.PhoneNumber = phoneNumber;
-                        result.Email = email;
-                        result.Comments = comments;
+                        var result2 = db.Location.FirstOrDefault(l => l.LocationID == locationID);
 
-                        db.SaveChanges();
+                        if (result2 != null)
+                        {
 
-                        Console.WriteLine("\n\nClient updated with succeed!");
+                            clientUpdatedSucceed = true;
+
+                            result1.Name = newName;
+                            result1.LocationID = locationID;
+                            result1.DateBirth = dateBirth;
+                            result1.Address = address;
+                            result1.PhoneNumber = phoneNumber;
+                            result1.Email = email;
+                            result1.Comments = comments;
+
+                            db.SaveChanges();
+
+                            Console.WriteLine("\n\nClient updated with succeed!");
+
+                        }
 
                     }
                     else
@@ -155,78 +157,86 @@ namespace RSGymPT_Client.Repository
                         Console.Clear();
                     }
 
-
                 }
 
             } while (!clientUpdatedSucceed);
 
         }
 
+        
         public static void ListClients(User user)
         {
+
+            Console.Clear();
 
             // Clientes ativos ordenados pelo nome
             using (var db = new RSGymDBContext())
             {
 
-                var queryClients = db.Client.Select(c => c).Where(c => c.Active == true).OrderBy(c => c.Name);
-
-                Console.Clear();
+                var queryClients = db.Client.Where(c => c.Active == true).OrderBy(c => c.Name);
 
                 Utility.WriteTitle("Clients - All Clients");
 
-                queryClients.ToList().ForEach(c => Utility.WriteMessage($"Name: {c.Name}\nDate of birth: {c.DateBirth}\nNIF: {c.NIF}\nAddress: {c.Address}\nPostal Code: {c.Location.PostalCode}\nCity: {c.Location.City}\nComments: {c.Comments}\nActive: {c.Active}\n\n", "", "\n"));
+                queryClients.ToList().ForEach(c => Utility.WriteMessage($"Name: {c.Name}\nDate of birth: {c.DateBirth.ToShortDateString()}\nNIF: {c.NIF}\nAddress: {c.Address}\nPostal Code: {c.Location.PostalCode}\nCity: {c.Location.City}\nComments: {c.Comments}\nActive: {c.Active}\n\n", "", "\n"));
 
             }
 
         }
+        
 
         public static void ChangeClientStatus(User user)
         {
 
             Console.Clear();
 
-            Utility.WriteTitle("Clients - Update Status");
+            bool clientUpdatedStatusSucceed = false;
 
-            Console.Write("Confirm your NIF: ");
-            string nif = Console.ReadLine();
-
-
-            using (var db = new RSGymDBContext())
+            do
             {
-                var result = db.Client.FirstOrDefault(c => c.NIF == nif);
+                Utility.WriteTitle("Clients - Update Status");
 
-                if (result != null)
+                Console.Write("Confirm Client NIF: ");
+                string nif = Console.ReadLine();
+
+
+                using (var db = new RSGymDBContext())
                 {
+                    var result = db.Client.FirstOrDefault(c => c.NIF == nif);
 
-                    if (result.Active == true)
+                    if (result != null)
                     {
-                        result.Active = false;
 
+                        clientUpdatedStatusSucceed = true;
 
-                        Console.WriteLine($"\n\nUpdate done successfully. Now your have a new status\n\nNew Status: {result.Active}");
+                        if (result.Active == true)
+                        {
+                            result.Active = false;
+
+                            Console.WriteLine($"\n\nUpdate done successfully. Now your have a new status\n\nActive: {result.Active}");
+                        }
+                        else
+                        {
+                            result.Active = true;
+
+                            Console.WriteLine($"\n\nUpdate done successfully. Now your have a new status\n\nActive: {result.Active}");
+                        }
+
+                        db.SaveChanges();
+
                     }
                     else
                     {
-                        result.Active = true;
-
-                        Console.WriteLine($"\n\nUpdate done successfully. Now your have a new status\n\nNew Status: {result.Active}");
+                        Console.WriteLine("\n\nThe NIF entered does not exist. Please confirm your details again.");
+                        Console.ReadKey();
+                        Console.Clear();
                     }
 
-
-                    db.SaveChanges();
-
                 }
-                else
-                {
-                    Console.WriteLine("\n\nThe NIF entered does not exist. Please confirm your details again.");
-                    Console.ReadKey();
-                    Console.Clear();
-                }
+            } while (!clientUpdatedStatusSucceed);
 
-            }
+
         }
-
+        #endregion
 
         #region Starting Clients
 
@@ -235,9 +245,9 @@ namespace RSGymPT_Client.Repository
 
             ICollection<Client> clients = new Collection<Client>
             {
-                new Client { LocationID = 2, PersonalTrainerID = 1, Name = "Client One", DateBirth = new DateTime (1996, 02, 26), NIF = "214456389", Address = "Rua do Client01", PhoneNumber = "919991872", Email = "client01@hotmail.com", Comments = "test1", Active = true},
-                new Client { LocationID = 3, PersonalTrainerID = 2, Name = "Client Two", DateBirth = new DateTime (1990, 10, 02), NIF = "213459781", Address = "Rua do Client02", PhoneNumber = "964321942", Email = "client02@hotmail.com", Active = true},
-                new Client { LocationID = 6, PersonalTrainerID = 1, Name = "Client Three", DateBirth = new DateTime (1988, 07, 22), NIF = "217458786", Address = "Rua do Client03", PhoneNumber = "931662873", Email = "client03@hotmail.com", Comments = "test3", Active = true},
+                new Client { LocationID = 1, Name = "Client One", DateBirth = new DateTime (1996, 02, 26), NIF = "214456389", Address = "Rua do Client01", PhoneNumber = "919991872", Email = "client01@hotmail.com", Comments = "test1", Active = true},
+                new Client { LocationID = 2, Name = "Client Two", DateBirth = new DateTime (1990, 10, 02), NIF = "213459781", Address = "Rua do Client02", PhoneNumber = "964321942", Email = "client02@hotmail.com", Active = true},
+                new Client { LocationID = 3, Name = "Client Three", DateBirth = new DateTime (1988, 07, 22), NIF = "217458786", Address = "Rua do Client03", PhoneNumber = "931662873", Email = "client03@hotmail.com", Comments = "test3", Active = true},
             };
 
             using (var db = new RSGymDBContext())

@@ -23,23 +23,28 @@ namespace RSGymPT.Classes
 
                 switch (value)
                 {
-                    case 1: // Requests
-                        int valuePedido;
+                    case 1: // Users
+                        int valueUser;
                         do
                         {
-                            PrintRequestOptions(user);
-                            valuePedido = ReadValues(user);
+
+                            PrintUserOptions(user);
+                            valueUser = ReadValues(user);
 
                             Console.Clear();
 
-                            switch (valuePedido)
+                            switch (valueUser)
                             {
                                 case 1: // Create
-                                    RequestRepository.CreateRequest(user);
+                                    UserRepository.CreateUser(user);
                                     Utility.TerminateConsole();
                                     break;
-                                case 2: // List
-                                    RequestRepository.ListRequests(user);
+                                case 2: // Update
+                                    UserRepository.UpdateUser(user);
+                                    Utility.TerminateConsole();
+                                    break;
+                                case 3: // List
+                                    UserRepository.ListUsers(user);
                                     Utility.TerminateConsole();
                                     break;
                                 case 0: // Back
@@ -50,9 +55,50 @@ namespace RSGymPT.Classes
                                     Console.Clear();
                                     break;
                             }
-                        } while (valuePedido != 0);
+                        } while (valueUser != 0);
                         break;
-                    case 2: // PersonalTrainers
+                    case 2: // Clients
+                        int valueClient;
+                        do
+                        {
+
+                            Console.Clear();
+
+                            PrintClientOptions(user);
+                            valueClient = ReadValues(user);
+
+                            Console.Clear();
+
+                            switch (valueClient)
+                            {
+                                case 1: // Create
+                                    ClientRepository.CreateClient(user);
+                                    Utility.TerminateConsole();
+                                    break;
+                                case 2: // Update
+                                    ClientRepository.UpdateClient(user);
+                                    Utility.TerminateConsole();
+                                    break;
+                                case 3: // List
+                                    ClientRepository.ListClients(user);
+                                    Utility.TerminateConsole();
+                                    break;
+                                case 4: // Active
+                                    ClientRepository.ChangeClientStatus(user);
+                                    Utility.TerminateConsole();
+                                    break;
+                                case 0: // Back
+                                    break;
+                                default:
+                                    Utility.OperationNotFoundAlert();
+                                    Console.ReadKey();
+                                    Console.Clear();
+                                    break;
+                            }
+
+                        } while (valueClient != 0);
+                        break;
+                    case 3: // PersonalTrainers
                         int valuePersonalTrainer;
                         do
                         {
@@ -82,27 +128,23 @@ namespace RSGymPT.Classes
 
                         } while (valuePersonalTrainer != 0);
                         break;
-                    case 3: // Users
-                        int valueUser;
+                    case 4: // Requests
+                        int valueRequest;
                         do
                         {
-                            PrintUserOptions(user);
-                            valueUser = ReadValues(user);
+                            PrintRequestOptions(user);
+                            valueRequest = ReadValues(user);
 
                             Console.Clear();
 
-                            switch (valueUser)
+                            switch (valueRequest)
                             {
                                 case 1: // Create
-                                    UserRepository.CreateUser(user);
+                                    RequestRepository.CreateRequest(user);
                                     Utility.TerminateConsole();
                                     break;
-                                case 2: // Update
-                                    UserRepository.UpdateUser(user);
-                                    Utility.TerminateConsole();
-                                    break;
-                                case 3: // List
-                                    UserRepository.ListUsers(user);
+                                case 2: // List
+                                    RequestRepository.ListRequests(user);
                                     Utility.TerminateConsole();
                                     break;
                                 case 0: // Back
@@ -113,23 +155,14 @@ namespace RSGymPT.Classes
                                     Console.Clear();
                                     break;
                             }
-
-
-                        } while (valueUser != 0);
+                        } while (valueRequest != 0);
                         break;
-                    case 4:
+                    case 5:
                         LoginMenu.FirstMenu();
 
                         /*
-                        int valueLogout;
-                        do
-                        {
-                            valueLogout = ReadValues(user);
-                            //stop = true;
-                            LoginMenu.FirstMenu();
                             // ToDo: Método para fazer logout UserRepository.Logout
                             // Voltar para o menu login
-                        } while (valueLogout != 4);
                         */
 
                         break;
@@ -140,7 +173,7 @@ namespace RSGymPT.Classes
                         break;
                 }
 
-            } while (value != 4);
+            } while (value != 5);
 
         }
 
@@ -187,10 +220,11 @@ namespace RSGymPT.Classes
 
             string[] menuOptions = new string[]
             {
-                "1. Request",
-                "2. Personal Trainer",
-                "3. User",
-                "4. Logout"
+                "1. User",
+                "2. Client",
+                "3. Personal Trainer",
+                "4. Request",
+                "5. Logout"
             };
 
 
@@ -236,7 +270,7 @@ namespace RSGymPT.Classes
                 "0. Back"
             };
 
-            Utility.WriteTitle($"User - {user.Username}");
+            Utility.WriteTitle($"Personal Trainer - {user.Username}");
 
             foreach (var listMenu in menuPersonalTrainer)
             {
@@ -261,6 +295,29 @@ namespace RSGymPT.Classes
             Utility.WriteTitle($"User - {user.Username}");
 
             foreach (var listMenu in menuUser)
+            {
+                Console.WriteLine(listMenu);
+            }
+
+        }
+
+        public static void PrintClientOptions(User user)
+        {
+
+            Console.Clear();
+
+            string[] menuClient = new string[]
+            {
+                "1. Create",
+                "2. Update",
+                "3. List",
+                "4. Active",
+                "0. Back"
+            };
+
+            Utility.WriteTitle($"Client - {user.Username}");
+
+            foreach (var listMenu in menuClient)
             {
                 Console.WriteLine(listMenu);
             }

@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RSGymPT_DAL.Model
 {
@@ -13,7 +9,6 @@ namespace RSGymPT_DAL.Model
 
         // Tabela 1 (Request)
         // Tabela N (Location)
-        // Tabela N (PersonalTrainer)
 
         #region Scalar Properties
 
@@ -22,12 +17,10 @@ namespace RSGymPT_DAL.Model
 
         // FK
         public int LocationID { get; set; }
-        public int PersonalTrainerID { get; set; }
-
 
         [Required(ErrorMessage = "Name is required.")]
         [MaxLength(100, ErrorMessage = "100 character limit.")]
-        [RegularExpression(@"^[a-zA-Z\s'\-\p{L}ç~]{1,100}$", ErrorMessage = "Numbers are not allowed in the name.")]
+        [RegularExpression(@"^[^0-9]+$", ErrorMessage = "Numbers are not allowed in the name.")]
         public string Name { get; set; }
 
         [Display(Name = "Date of birth")]
@@ -48,7 +41,6 @@ namespace RSGymPT_DAL.Model
         [Required(ErrorMessage = "Phone number is required.")]
         [RegularExpression(@"([0-9]+)", ErrorMessage = "Must be a Number.")]
         [MaxLength(9, ErrorMessage = "9 character limit.")]
-        //[Phone]
         public string PhoneNumber { get; set; }
         
         [Required(ErrorMessage = "Email address is required.")]
@@ -69,7 +61,6 @@ namespace RSGymPT_DAL.Model
         #region Navigation Properties
 
         public virtual Location Location { get; set; }
-        public virtual PersonalTrainer PersonalTrainer { get; set; }
         public virtual ICollection<Request> Requests { get; set; }
 
         #endregion

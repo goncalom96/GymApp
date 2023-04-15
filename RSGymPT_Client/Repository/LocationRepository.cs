@@ -12,6 +12,7 @@ namespace RSGymPT_Client.Repository
     static class LocationRepository
     {
 
+        #region Features
         public static void CreateLocation(User user)
         {
 
@@ -159,7 +160,7 @@ namespace RSGymPT_Client.Repository
             }
 
         }
-
+        #endregion
 
         #region Starting Locations
 
@@ -173,7 +174,13 @@ namespace RSGymPT_Client.Repository
                 new Location { PostalCode = "4000-996" , City = "Porto"},
                 new Location { PostalCode = "4049-019" , City = "Porto"},
                 new Location { PostalCode = "4700-442", City = "Braga"},
-                new Location { PostalCode = "2520-400", City = "Peniche"}
+                new Location { PostalCode = "4700-432", City = "Braga"},
+                new Location { PostalCode = "2520-420", City = "Peniche"},
+                new Location { PostalCode = "2520-400", City = "Peniche"},
+                new Location { PostalCode = "8500-058", City = "Portimão"},
+                new Location { PostalCode = "8500-290", City = "Portimão"},
+                new Location { PostalCode = "6000-034", City = "Castelo Branco"},
+                new Location { PostalCode = "6000-111", City = "Castelo Branco"}
             };
 
             using (var db = new RSGymDBContext())
@@ -187,7 +194,6 @@ namespace RSGymPT_Client.Repository
         }
 
         #endregion
-
 
     }
 

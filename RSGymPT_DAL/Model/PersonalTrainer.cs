@@ -11,7 +11,6 @@ namespace RSGymPT_DAL.Model
     {
 
         // Tabela 1 (Request)
-        // Tabela 1 (Client)
         // Tabela N (Location)
 
         #region Scalar Properties
@@ -28,7 +27,7 @@ namespace RSGymPT_DAL.Model
         public string CodePT { get; set; }
 
         [Required(ErrorMessage = "Personal Trainer name is required.")]
-        [RegularExpression(@"^[a-zA-Z\s'\-\p{L}ç~]{1,100}$", ErrorMessage = "Numbers are not allowed in the name.")]
+        [RegularExpression(@"^[^0-9]+$", ErrorMessage = "Numbers are not allowed in the name.")]
         [MaxLength(100, ErrorMessage = "100 character limit.")]
         public string Name { get; set; }
 
@@ -45,7 +44,6 @@ namespace RSGymPT_DAL.Model
         [Required(ErrorMessage = "Phone number is required.")]
         [RegularExpression(@"([0-9]+)", ErrorMessage = "Must be a Number.")]
         [MaxLength(9, ErrorMessage = "9 character limit.")]
-        //[Phone]
         public string PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Email address is required.")]
@@ -58,7 +56,6 @@ namespace RSGymPT_DAL.Model
         #region Navigation Properties
 
         public virtual Location Location { get; set; }
-        public virtual ICollection<Client> Clients { get; set; }
         public virtual ICollection<Request> Requests { get; set; }
 
         #endregion

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using AppUtility;
+using RSGymPT_Client.InputValidation;
 using RSGymPT_DAL.Database;
 using RSGymPT_DAL.Model;
 
@@ -22,17 +23,13 @@ namespace RSGymPT_Client.Repository
 
                 Utility.WriteTitle("User - Create");
 
-                Console.Write("Username: ");
-                string username = Console.ReadLine();
+                string username = Validation.ValidateUserName();
 
-                Console.Write("UserCode: ");
-                string userCode = Console.ReadLine();
+                string userCode = Validation.ValidateUserCode();
 
-                Console.Write("Password: ");
-                string password = Console.ReadLine();
+                string password = Validation.ValidatePassword();
 
-                Console.Write($"Profile (1 - admin | 2 - colab): ");
-                User.EnumProfile profile = (User.EnumProfile)Convert.ToInt16(Console.ReadLine());
+                User.EnumProfile profile = Validation.ValidateProfile();
 
 
                 using (var db = new RSGymDBContext())
@@ -55,24 +52,10 @@ namespace RSGymPT_Client.Repository
                         db.SaveChanges();
 
                         Console.WriteLine("\n\nUser created with succeed!");
-
-                    }
-                    else if (result1 != null && result2 != null) // ToDo: Está a dar erro
-                    {
-                        Console.WriteLine("\n\nYou need to choose another Username and UserCode.");
-                        Console.ReadKey();
-                        Console.Clear();
-
-                    }
-                    else if (result1 != null)
-                    {
-                        Console.WriteLine("\n\nYou need to choose another Username.");
-                        Console.ReadKey();
-                        Console.Clear();
                     }
                     else
                     {
-                        Console.WriteLine("\n\nYou need to choose another UserCode.");
+                        Console.WriteLine("\n\nInvalid! You need to choose another Username or UserCode.");
                         Console.ReadKey();
                         Console.Clear();
                     }
@@ -85,6 +68,8 @@ namespace RSGymPT_Client.Repository
 
         public static void ListUsers(User user)
         {
+
+            Console.Clear();
 
             // Users ordenadas por code 
             using (var db = new RSGymDBContext())
@@ -112,8 +97,8 @@ namespace RSGymPT_Client.Repository
 
                 Utility.WriteTitle("User - Update");
 
-                Console.Write("Confirm your UserCode: ");
-                string userCode = Console.ReadLine();
+                Console.Write("Confirm UserCode: ");
+                string userCode = Validation.ValidateUserCode();
 
                 Console.Write("New password: ");
                 string password = Console.ReadLine();
@@ -147,7 +132,6 @@ namespace RSGymPT_Client.Repository
             } while (!updateSucceed);
 
         }
-
         #endregion
 
         #region Starting Users
@@ -170,7 +154,7 @@ namespace RSGymPT_Client.Repository
         }
         #endregion
 
-        #region Validations
+        #region Read Credentials
         public static (string, string) ReadCredentials()
         {
 
@@ -184,8 +168,6 @@ namespace RSGymPT_Client.Repository
 
             return (username, password);
         }
-
-
         #endregion
 
     }

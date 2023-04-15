@@ -46,7 +46,6 @@ namespace RSGymPT_Client
                 }
             }
 
-
             Utility.TerminateConsole();
 
         }
