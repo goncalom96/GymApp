@@ -14,10 +14,10 @@ namespace RSGymPT.Classes
         {
 
             int value;
-            bool stop = false;
 
             do
             {
+
                 PrintMenuOptions(user);
                 value = ReadValues(user);
 
@@ -30,18 +30,24 @@ namespace RSGymPT.Classes
                             PrintRequestOptions(user);
                             valuePedido = ReadValues(user);
 
+                            Console.Clear();
+
                             switch (valuePedido)
                             {
                                 case 1: // Create
-                                    RequestRepository.CreateRequest();
+                                    RequestRepository.CreateRequest(user);
+                                    Utility.TerminateConsole();
                                     break;
                                 case 2: // List
-                                    RequestRepository.ListRequests();
+                                    RequestRepository.ListRequests(user);
+                                    Utility.TerminateConsole();
                                     break;
                                 case 0: // Back
                                     break;
                                 default:
                                     Utility.OperationNotFoundAlert();
+                                    Console.ReadKey();
+                                    Console.Clear();
                                     break;
                             }
                         } while (valuePedido != 0);
@@ -53,18 +59,24 @@ namespace RSGymPT.Classes
                             PrintPersonalTrainerOptions(user);
                             valuePersonalTrainer = ReadValues(user);
 
+                            Console.Clear();
+
                             switch (valuePersonalTrainer)
                             {
                                 case 1: // Create
-                                    PersonalTrainerRepository.CreatePersonalTrainer();
+                                    PersonalTrainerRepository.CreatePersonalTrainer(user);
+                                    Utility.TerminateConsole();
                                     break;
                                 case 2: // List
-                                    PersonalTrainerRepository.ListPersonalTrainers();
+                                    PersonalTrainerRepository.ListPersonalTrainers(user);
+                                    Utility.TerminateConsole();
                                     break;
                                 case 0: // Back
                                     break;
                                 default:
                                     Utility.OperationNotFoundAlert();
+                                    Console.ReadKey();
+                                    Console.Clear();
                                     break;
                             }
 
@@ -77,33 +89,39 @@ namespace RSGymPT.Classes
                             PrintUserOptions(user);
                             valueUser = ReadValues(user);
 
+                            Console.Clear();
+
                             switch (valueUser)
                             {
                                 case 1: // Create
-                                    UserRepository.CreateUser();
+                                    UserRepository.CreateUser(user);
                                     Utility.TerminateConsole();
                                     break;
                                 case 2: // Update
-                                    UserRepository.UpdateUser();
+                                    UserRepository.UpdateUser(user);
                                     Utility.TerminateConsole();
                                     break;
                                 case 3: // List
-                                    UserRepository.ListUsers();
+                                    UserRepository.ListUsers(user);
                                     Utility.TerminateConsole();
                                     break;
                                 case 0: // Back
                                     break;
                                 default:
                                     Utility.OperationNotFoundAlert();
+                                    Console.ReadKey();
+                                    Console.Clear();
                                     break;
                             }
+
 
                         } while (valueUser != 0);
                         break;
                     case 4:
-                        //int valueLogout;
                         LoginMenu.FirstMenu();
+
                         /*
+                        int valueLogout;
                         do
                         {
                             valueLogout = ReadValues(user);
@@ -113,13 +131,16 @@ namespace RSGymPT.Classes
                             // Voltar para o menu login
                         } while (valueLogout != 4);
                         */
+
                         break;
                     default:
                         Utility.OperationNotFoundAlert();
+                        Console.ReadKey();
+                        Console.Clear();
                         break;
-                } 
+                }
 
-            } while (!stop);
+            } while (value != 4);
 
         }
 
@@ -130,26 +151,26 @@ namespace RSGymPT.Classes
         public static int ReadValues(User user)
         {
 
-            bool parseSucceded;
+            bool validValue = false;
             int answerConverted;
 
             do
             {
 
                 Console.Write("\n\n>> ");
-                parseSucceded = int.TryParse(Console.ReadLine(), out answerConverted);
-                Console.Clear();
+                bool parseSucceded = int.TryParse(Console.ReadLine(), out answerConverted);
 
-                if (!parseSucceded)
+                if (parseSucceded)
                 {
-                    Console.WriteLine($"\n{user.Username}, remember that you can only answer with numbers.");
-                    Console.Clear();
-
-                    //Menu(user);
+                    validValue = true;
+                }
+                else
+                {
+                    Utility.OperationWithNumbers();
                 }
 
 
-            } while (!parseSucceded);
+            } while (!validValue);
 
             return answerConverted;
 
@@ -161,6 +182,8 @@ namespace RSGymPT.Classes
 
         public static void PrintMenuOptions(User user)
         {
+
+            Console.Clear();
 
             string[] menuOptions = new string[]
             {
@@ -183,11 +206,12 @@ namespace RSGymPT.Classes
         private static void PrintRequestOptions(User user)
         {
 
+            Console.Clear();
+
             string[] menuRequest = new string[]
             {
                 "1. Create",
-                "2. Update",
-                "3. List",
+                "2. List",
                 "0. Back"
             };
 
@@ -202,6 +226,8 @@ namespace RSGymPT.Classes
 
         public static void PrintPersonalTrainerOptions(User user)
         {
+
+            Console.Clear();
 
             string[] menuPersonalTrainer = new string[]
             {
@@ -221,6 +247,8 @@ namespace RSGymPT.Classes
 
         public static void PrintUserOptions(User user)
         {
+
+            Console.Clear();
 
             string[] menuUser = new string[]
             {

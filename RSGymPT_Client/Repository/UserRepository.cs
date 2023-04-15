@@ -12,17 +12,15 @@ namespace RSGymPT_Client.Repository
     {
 
         #region Features
-        public static void CreateUser()
+        public static void CreateUser(User user)
         {
-
-            // ToDo: Validar a existência do User antes de o criar
 
             bool newUserSucceed = false;
 
             do
             {
 
-                Utility.WriteTitle("User - New User");
+                Utility.WriteTitle("User - Create");
 
                 Console.Write("Username: ");
                 string username = Console.ReadLine();
@@ -56,25 +54,27 @@ namespace RSGymPT_Client.Repository
                         db.User.AddRange(users);
                         db.SaveChanges();
 
-                        Utility.WriteTitle("User - New User");
-                        Console.WriteLine("\nUser created with succeed!");
-                        Utility.TerminateConsole();
-                    }
-                    else if (result1.Username != null && result2.UserCode != null) // ToDo: Está a dar erro
-                    {
-                        Console.WriteLine("\nYou need to choose another Username and UserCode");
-                        Utility.TerminateConsole();
+                        Console.WriteLine("\n\nUser created with succeed!");
 
                     }
-                    else if (result1.Username != null)
+                    else if (result1 != null && result2 != null) // ToDo: Está a dar erro
                     {
-                        Console.WriteLine("\nYou need to choose another Username");
-                        Utility.TerminateConsole();
+                        Console.WriteLine("\n\nYou need to choose another Username and UserCode.");
+                        Console.ReadKey();
+                        Console.Clear();
+
+                    }
+                    else if (result1 != null)
+                    {
+                        Console.WriteLine("\n\nYou need to choose another Username.");
+                        Console.ReadKey();
+                        Console.Clear();
                     }
                     else
                     {
-                        Console.WriteLine("\nYou need to choose another UserCode");
-                        Utility.TerminateConsole();
+                        Console.WriteLine("\n\nYou need to choose another UserCode.");
+                        Console.ReadKey();
+                        Console.Clear();
                     }
 
                 }
@@ -83,7 +83,7 @@ namespace RSGymPT_Client.Repository
 
         }
 
-        public static void ListUsers()
+        public static void ListUsers(User user)
         {
 
             // Users ordenadas por code 
@@ -100,17 +100,19 @@ namespace RSGymPT_Client.Repository
 
         }
 
-        public static void UpdateUser()
+        public static void UpdateUser(User user)
         {
+
+            Console.Clear();
 
             bool updateSucceed = false;
 
             do
             {
 
-                Utility.WriteTitle("User - Update - New password");
+                Utility.WriteTitle("User - Update");
 
-                Console.Write("Please confirm your code: ");
+                Console.Write("Confirm your UserCode: ");
                 string userCode = Console.ReadLine();
 
                 Console.Write("New password: ");
@@ -130,14 +132,14 @@ namespace RSGymPT_Client.Repository
 
                         db.SaveChanges();
 
-                        Utility.WriteTitle("User - Update - New password");
-                        Console.WriteLine("Successful update! You have a new password.");
+                        Console.WriteLine("\n\nUser updated with succeed!\nYou have a new password.");
 
                     }
                     else
                     {
-                        Utility.WriteTitle("User - Update error");
-                        Console.WriteLine("Check your code.");
+                        Console.WriteLine("\n\nPlease confirm your UserCode.");
+                        Console.ReadKey();
+                        Console.Clear();
                     }
 
                 }

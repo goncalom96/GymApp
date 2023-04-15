@@ -18,6 +18,7 @@ namespace RSGymPT.Classes
             do
             {
                 PrintFirstMenu();
+
                 value = ReadValues();
 
                 switch (value)
@@ -47,7 +48,6 @@ namespace RSGymPT.Classes
         public static void Login()
         {
 
-
             bool loginSucceed = false;
 
             int attempts = 0;
@@ -75,8 +75,7 @@ namespace RSGymPT.Classes
 
                         User user = result;
 
-
-                        if (user.Profile == User.EnumProfile.colab)
+                        if (user.Profile == User.EnumProfile.admin)
                         {
 
                             NavigationMenu.MainMenuAdmin(user);
@@ -84,9 +83,8 @@ namespace RSGymPT.Classes
                         }
                         else
                         {
-
+                            // ToDo: Meter menu colab
                         }
-
 
                     }
                     else
@@ -96,7 +94,6 @@ namespace RSGymPT.Classes
 
                         Console.ReadKey();
                         Console.Clear();
-
                     }
 
                     if (attempts >= 3)
@@ -104,7 +101,6 @@ namespace RSGymPT.Classes
                         Console.WriteLine("\nYou have reached your limit!\n\nThe application will be closed...");
                         Exit();
                     }
-
 
                 }
 
@@ -146,7 +142,7 @@ namespace RSGymPT.Classes
 
         public static int ReadValues()
         {
-
+            
             bool validValue = false;
             int answerConverted;
 

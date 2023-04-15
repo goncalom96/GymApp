@@ -9,13 +9,16 @@ using System.Xml.Linq;
 using AppUtility;
 using RSGymPT_DAL.Database;
 using RSGymPT_DAL.Model;
+using static System.Collections.Specialized.BitVector32;
 
 namespace RSGymPT_Client.Repository
 {
     static class RequestRepository
     {
-        public static void CreateRequest()
+        public static void CreateRequest(User user)
         {
+
+            Console.Clear();
 
             // ToDo: Validar a existência do Client, PersonalTrainer e Agendamento antes de o criar
 
@@ -25,10 +28,9 @@ namespace RSGymPT_Client.Repository
             Console.Write("PersonalTrainer ID: ");
             bool tryParsePersonalTrainerID = Int16.TryParse(Console.ReadLine(), out Int16 personalTrainerID);
 
-            Console.Write("Date: ");
-            bool tryParseDate = DateTime.TryParse(Console.ReadLine(), out DateTime date);
+            DateTime date = ValidateFutureDate();
 
-            Console.Write("Hour: ");
+            Console.Write("Hour (hh:mm): ");
             bool tryParseHour = DateTime.TryParse(Console.ReadLine(), out DateTime hour);
 
             Console.Write("Status: ");
@@ -48,7 +50,7 @@ namespace RSGymPT_Client.Repository
                 var result3 = db.Request.FirstOrDefault(r => r.Date == date && r.Hour == hour);
 
 
-                if (result1 != null && result2 != null && (result2 == null && result3 != null))
+                if (result1 != null && (result2 != null && result3 != null))
                 {
 
                     ICollection<Request> requests = new Collection<Request>
@@ -59,13 +61,13 @@ namespace RSGymPT_Client.Repository
                     db.Request.AddRange(requests);
                     db.SaveChanges();
 
-                    Utility.WriteTitle("Request - New request");
-                    Console.WriteLine("Request created with succeed!");
+                    Console.WriteLine("\n\nRequest created with succeed!");
                 }
                 else
                 {
-                    Utility.WriteTitle("Request - Error");
-                    Console.WriteLine("The NIF entered already exists. Please confirm your details again.");
+                    Console.WriteLine("\n\nPlease confirm your details again.");
+                    Console.ReadKey();
+                    Console.Clear();
                 }
 
             }
@@ -73,13 +75,16 @@ namespace RSGymPT_Client.Repository
 
         }
 
-        public static void ListRequests()
+        public static void ListRequests(User user)
         {
+
             // Requests ordenados por Status, data e hora
             using (var db = new RSGymDBContext())
             {
 
                 var queryClients = db.Request.Select(r => r).OrderBy(r => r.Status).ThenBy(r => r.Date).ThenBy(r => r.Hour);
+
+                Console.Clear();
 
                 Utility.WriteTitle("Requests - Request History");
 
@@ -89,6 +94,39 @@ namespace RSGymPT_Client.Repository
 
         }
 
+
+        #region Validations
+
+        public static DateTime ValidateFutureDate()
+        {
+
+            bool validDate = false;
+
+            DateTime date;
+
+            Console.Write("Date (yyyy/MM/dd): ");
+
+            do
+            {
+
+                DateTime.TryParse(Console.ReadLine(), out date);
+
+                if (date >= DateTime.Now)
+                {
+                    validDate = true;
+                }
+                else
+                {
+                    Console.WriteLine("\tDo you want to book a session in the past?");
+                    Console.Write("\t>> ");
+                }
+
+            } while (!validDate);
+
+            return date;
+        }
+
+        #endregion
 
     }
 }

@@ -12,8 +12,10 @@ namespace RSGymPT_Client.Repository
     static class LocationRepository
     {
 
-        public static void CreateLocation()
+        public static void CreateLocation(User user)
         {
+
+            Console.Clear();
 
             bool newLocationSucceed = false;
 
@@ -42,15 +44,15 @@ namespace RSGymPT_Client.Repository
                                 new Location { PostalCode = postalCode, City = city}
                             };
 
-                        Utility.WriteTitle("Location - New Location");
-                        Console.WriteLine("Location created with succeed!");
+                        Console.WriteLine("\n\nLocation created with succeed!");
 
                         db.SaveChanges();
                     }
                     else
                     {
-                        Utility.WriteTitle("Location - Error");
-                        Console.WriteLine("Already exist one location with the same postal code and city.");
+                        Console.WriteLine("\n\nAlready exist one location with the same postal code and city.");
+                        Console.ReadKey();
+                        Console.Clear();
                     }
 
                 }
@@ -59,7 +61,7 @@ namespace RSGymPT_Client.Repository
 
         }
 
-        public static void ListLocations()
+        public static void ListLocations(User user)
         {
 
             // Locations ordenadas por cidades 
@@ -67,6 +69,8 @@ namespace RSGymPT_Client.Repository
             {
 
                 var queryLocations = db.Location.Select(l => l).OrderBy(l => l.City);
+
+                Console.Clear();
 
                 Utility.WriteTitle("Locations - All locations");
 
@@ -76,8 +80,10 @@ namespace RSGymPT_Client.Repository
 
         }
 
-        public static void UpdateLocation()
+        public static void UpdateLocation(User user)
         {
+
+            Console.Clear();
 
             bool locationUpdateSucceed = false;
 
@@ -111,13 +117,13 @@ namespace RSGymPT_Client.Repository
                             result1.City = city;
                             db.SaveChanges();
 
-                            Utility.WriteTitle("Location - Update");
-                            Console.WriteLine("Location updated with succeed!");
+                            Console.WriteLine("\n\nLocation updated with succeed!");
                         }
                         else
                         {
-                            Utility.WriteTitle("Location - Error");
-                            Console.WriteLine("Already exist one location with the same postal code and city.");
+                            Console.WriteLine("\n\nAlready exist one location with the same postal code and city.");
+                            Console.ReadKey();
+                            Console.Clear();
                         }
 
                     }
@@ -128,8 +134,10 @@ namespace RSGymPT_Client.Repository
 
         }
 
-        public static void DeleteLocation()
+        public static void DeleteLocation(User user)
         {
+
+            Console.Clear();
 
             Utility.WriteTitle("Locations - Delete");
 

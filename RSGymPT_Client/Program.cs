@@ -21,33 +21,16 @@ namespace RSGymPT_Client
 
             try
             {
-                /*
+                
                 #region Starting Data
-
-                
+                /*
                 UserRepository.StartingUsers();
-                UserRepository.ListUsers();
-                
-                Utility.BlockSeparator("\n");
-
                 LocationRepository.StartingLocations();
-                LocationRepository.ListLocations();
-                
-                Utility.BlockSeparator("\n");
-
                 PersonalTrainerRepository.StartingPersonalTrainers();
-                PersonalTrainerRepository.ListPersonalTrainers();
-
-                Utility.BlockSeparator("\n");
-
                 ClientRepository.StartingClients();
-                ClientRepository.ListClients();
-
-                Utility.TerminateConsole();
-
-                #endregion
                 */
-
+                #endregion
+                
                 LoginMenu.FirstMenu();
 
             }

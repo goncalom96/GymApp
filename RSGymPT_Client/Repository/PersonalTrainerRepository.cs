@@ -15,16 +15,17 @@ namespace RSGymPT_Client.Repository
     static class PersonalTrainerRepository
     {
 
-        public static void CreatePersonalTrainer()
+        public static void CreatePersonalTrainer(User user)
         {
 
+            Console.Clear();
 
             bool newPersonalTrainerSucceed = false;
 
             do
             {
 
-                Utility.WriteTitle("Personal Trainer - New PT");
+                Utility.WriteTitle("Personal Trainer - Create");
 
                 Console.Write("Code: ");
                 string codePT = Console.ReadLine();
@@ -38,7 +39,7 @@ namespace RSGymPT_Client.Repository
                 Console.Write("Address: ");
                 string address = Console.ReadLine();
 
-                Console.Write("Location: ");
+                Console.Write("Location ID: ");
                 bool tryParseLocation = Int16.TryParse(Console.ReadLine(), out Int16 locationID);
 
                 Console.Write("Phone number: ");
@@ -50,11 +51,12 @@ namespace RSGymPT_Client.Repository
 
                 using (var db = new RSGymDBContext())
                 {
+                    
+                    var result1 = db.PersonalTrainer.FirstOrDefault(p => p.NIF == nif);
 
-                    var result = db.PersonalTrainer.FirstOrDefault(p => p.NIF == nif);
+                    var result2 = db.PersonalTrainer.FirstOrDefault(p => p.CodePT == codePT);
 
-
-                    if (result != null)
+                    if (result1 == null && result2 == null)
                     {
                         newPersonalTrainerSucceed = true;
 
@@ -66,13 +68,14 @@ namespace RSGymPT_Client.Repository
                         db.PersonalTrainer.AddRange(personalTrainers);
                         db.SaveChanges();
 
-                        Utility.WriteTitle("Client - New Client");
-                        Console.WriteLine("Client created with succeed!");
+                        Console.WriteLine("\n\nPersonal Trainer created with succeed!");
+
                     }
                     else
                     {
-                        Utility.WriteTitle("Client - Error");
-                        Console.WriteLine("The NIF entered already exists. Please confirm your details again.");
+                        Console.WriteLine("\n\nThis Personal Trainer already exists. Please confirm your details again.");
+                        Console.ReadKey();
+                        Console.Clear();
                     }
 
                 }
@@ -82,13 +85,16 @@ namespace RSGymPT_Client.Repository
 
         }
 
-        public static void ListPersonalTrainers()
+        public static void ListPersonalTrainers(User user)
         {
+
             // PTs ordenados pelo nome
             using (var db = new RSGymDBContext())
             {
 
                 var queryPersonalTrainers = db.PersonalTrainer.Select(p => p).OrderBy(p => p.Name);
+
+                Console.Clear();
 
                 Utility.WriteTitle("Personal Trainers - All PTs");
 

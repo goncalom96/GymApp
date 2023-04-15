@@ -13,8 +13,10 @@ namespace RSGymPT_Client.Repository
     static class ClientRepository
     {
 
-        public static void CreateClient()
+        public static void CreateClient(User user)
         {
+
+            Console.Clear();
 
             bool newClientSucceed = false;
 
@@ -69,13 +71,13 @@ namespace RSGymPT_Client.Repository
                         db.Client.AddRange(clients);
                         db.SaveChanges();
 
-                        Utility.WriteTitle("Client - New Client");
-                        Console.WriteLine("Client created with succeed!");
+                        Console.WriteLine("\n\nClient created with succeed!");
                     }
                     else
                     {
-                        Utility.WriteTitle("Client - Error");
-                        Console.WriteLine("The NIF entered already exists. Please confirm your details again.");
+                        Console.WriteLine("\n\nThis Client already exists. Please confirm your details again.");
+                        Console.ReadKey();
+                        Console.Clear();
                     }
 
                 }
@@ -85,8 +87,10 @@ namespace RSGymPT_Client.Repository
 
         }
 
-        public static void UpdateClient()
+        public static void UpdateClient(User user)
         {
+
+            Console.Clear();
 
             bool clientUpdatedSucceed = false;
 
@@ -114,11 +118,9 @@ namespace RSGymPT_Client.Repository
                         string newName = Console.ReadLine();
 
                         Console.Write("Location: ");
-                        // ToDo: Método a confirmar a localização?
                         bool tryParseLocation = Int16.TryParse(Console.ReadLine(), out Int16 locationID);
 
                         Console.Write("Date Birth: ");
-                        // ToDo: Método a confirmar data?
                         bool tryParseDateBirth = DateTime.TryParse(Console.ReadLine(), out DateTime dateBirth);
 
                         Console.Write("Address: ");
@@ -142,11 +144,15 @@ namespace RSGymPT_Client.Repository
                         result.Comments = comments;
 
                         db.SaveChanges();
+
+                        Console.WriteLine("\n\nClient updated with succeed!");
+
                     }
                     else
                     {
-                        Utility.WriteTitle("Client - Error");
-                        Console.WriteLine("Please confirm your name.");
+                        Console.WriteLine("\n\nPlease confirm your name.");
+                        Console.ReadKey();
+                        Console.Clear();
                     }
 
 
@@ -156,13 +162,16 @@ namespace RSGymPT_Client.Repository
 
         }
 
-        public static void ListClients()
+        public static void ListClients(User user)
         {
+
             // Clientes ativos ordenados pelo nome
             using (var db = new RSGymDBContext())
             {
 
                 var queryClients = db.Client.Select(c => c).Where(c => c.Active == true).OrderBy(c => c.Name);
+
+                Console.Clear();
 
                 Utility.WriteTitle("Clients - All Clients");
 
@@ -172,8 +181,10 @@ namespace RSGymPT_Client.Repository
 
         }
 
-        public static void ChangeClientStatus()
+        public static void ChangeClientStatus(User user)
         {
+
+            Console.Clear();
 
             Utility.WriteTitle("Clients - Update Status");
 
@@ -192,15 +203,14 @@ namespace RSGymPT_Client.Repository
                     {
                         result.Active = false;
 
-                        Utility.WriteTitle("Clients - Update Status");
-                        Console.WriteLine($"New Status: {result.Active}");
+
+                        Console.WriteLine($"\n\nUpdate done successfully. Now your have a new status\n\nNew Status: {result.Active}");
                     }
                     else
                     {
                         result.Active = true;
 
-                        Utility.WriteTitle("Clients - Update Status");
-                        Console.WriteLine($"New Status: {result.Active}");
+                        Console.WriteLine($"\n\nUpdate done successfully. Now your have a new status\n\nNew Status: {result.Active}");
                     }
 
 
@@ -209,7 +219,9 @@ namespace RSGymPT_Client.Repository
                 }
                 else
                 {
-                    Console.WriteLine("The NIF entered already exists. Please confirm your details again.");
+                    Console.WriteLine("\n\nThe NIF entered does not exist. Please confirm your details again.");
+                    Console.ReadKey();
+                    Console.Clear();
                 }
 
             }

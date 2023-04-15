@@ -27,7 +27,7 @@ namespace RSGymPT_DAL.Model
 
         [Required(ErrorMessage = "Name is required.")]
         [MaxLength(100, ErrorMessage = "100 character limit.")]
-        [RegularExpression(@"^[a-zA-Z''-'\s]{1,100}$", ErrorMessage = "Numbers and special characters are not allowed in the name.")]
+        [RegularExpression(@"^[a-zA-Z\s'\-\p{L}ç~]{1,100}$", ErrorMessage = "Numbers are not allowed in the name.")]
         public string Name { get; set; }
 
         [Display(Name = "Date of birth")]

@@ -25,7 +25,7 @@ namespace RSGymPT_DAL.Model
         public string PostalCode { get; set; }
 
         [Required(ErrorMessage = "City is required.")]
-        [RegularExpression(@"^[a-zA-Z''-'\s]{1,100}$", ErrorMessage = "Numbers and special characters are not allowed in the name.")]
+        [RegularExpression(@"^[a-zA-Z\s'\-\p{L}ç~]{1,100}$", ErrorMessage = "Numbers are not allowed in the name.")]
         [MaxLength(100, ErrorMessage = "100 character limit.")]
         public string City { get; set; }
 
