@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.Eventing.Reader;
 using AppUtility;
 using RSGymPT_Client.Repository;
 using RSGymPT_DAL.Model;
@@ -10,7 +11,7 @@ namespace RSGymPT.Classes
 
         #region Navigation Menu
 
-        public static void MainMenuAdmin(User user)
+        public static void MainMenu(User user)
         {
 
             int value;
@@ -23,46 +24,58 @@ namespace RSGymPT.Classes
 
                 switch (value)
                 {
+
                     case 1: // Users
-                        int valueUser;
-                        do
+
+                        if (user.Profile == User.EnumProfile.admin && value == 1) // ToDo: Controla o acesso dos Admins/Colab ao SubMenu do User
                         {
-
-                            PrintUserOptions(user);
-                            valueUser = ReadValues(user);
-
-                            Console.Clear();
-
-                            switch (valueUser)
+                            int valueUser;
+                            do
                             {
-                                case 1: // Create
-                                    UserRepository.CreateUser(user);
-                                    Utility.TerminateConsole();
-                                    break;
-                                case 2: // Update
-                                    UserRepository.UpdateUser(user);
-                                    Utility.TerminateConsole();
-                                    break;
-                                case 3: // List
-                                    UserRepository.ListUsers(user);
-                                    Utility.TerminateConsole();
-                                    break;
-                                case 0: // Back
-                                    break;
-                                default:
-                                    Utility.OperationNotFoundAlert();
-                                    Console.ReadKey();
-                                    Console.Clear();
-                                    break;
-                            }
-                        } while (valueUser != 0);
+
+                                PrintUserOptions(user);
+                                valueUser = ReadValues(user);
+
+                                Console.Clear();
+
+                                switch (valueUser)
+                                {
+                                    case 1: // Create
+                                        UserRepository.CreateUser(user);
+                                        Utility.TerminateConsole();
+                                        break;
+                                    case 2: // Update
+                                        UserRepository.UpdateUser(user);
+                                        Utility.TerminateConsole();
+                                        break;
+                                    case 3: // List
+                                        UserRepository.ListUsers(user);
+                                        Utility.TerminateConsole();
+                                        break;
+                                    case 0: // Back
+                                        break;
+                                    default:
+                                        Utility.OperationNotFoundAlert();
+                                        Console.ReadKey();
+                                        Console.Clear();
+                                        break;
+                                }
+
+                            } while (valueUser != 0);
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("Access denied!"); // Se for "colab" o acesso é negado
+                            Console.ReadKey();
+                            Console.Clear();
+                        }
+
                         break;
                     case 2: // Clients
                         int valueClient;
                         do
                         {
-
-                            Console.Clear();
 
                             PrintClientOptions(user);
                             valueClient = ReadValues(user);
@@ -155,16 +168,11 @@ namespace RSGymPT.Classes
                                     Console.Clear();
                                     break;
                             }
+
                         } while (valueRequest != 0);
                         break;
                     case 5:
                         LoginMenu.FirstMenu();
-
-                        /*
-                            // ToDo: Método para fazer logout UserRepository.Logout
-                            // Voltar para o menu login
-                        */
-
                         break;
                     default:
                         Utility.OperationNotFoundAlert();
@@ -228,7 +236,7 @@ namespace RSGymPT.Classes
             };
 
 
-            Utility.WriteTitle($"RSGym Menu - {user.Username}");
+            Utility.WriteTitle($"RSGym Menu | {user.Username} | {user.Profile} |");
 
             foreach (var listMenu in menuOptions)
             {

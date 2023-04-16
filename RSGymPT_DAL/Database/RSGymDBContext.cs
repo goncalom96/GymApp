@@ -37,7 +37,6 @@ namespace RSGymPT_DAL.Database
         public DbSet<Request> Request { get; set; }
         public DbSet<Location> Location { get; set; }
 
-
         #endregion
     }
 }

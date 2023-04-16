@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.Validation;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AppUtility;
 using RSGymPT.Classes;
 using RSGymPT_Client.Repository;
-using RSGymPT_DAL.Database;
-using RSGymPT_DAL.Model;
 
 namespace RSGymPT_Client
 {
@@ -34,16 +27,9 @@ namespace RSGymPT_Client
                 LoginMenu.FirstMenu();
 
             }
-            catch (DbEntityValidationException ex)
+            catch (Exception)
             {
 
-                foreach (var entityValidationErrors in ex.EntityValidationErrors)
-                {
-                    foreach (var validationError in entityValidationErrors.ValidationErrors)
-                    {
-                        Console.WriteLine("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
-                    }
-                }
             }
 
             Utility.TerminateConsole();

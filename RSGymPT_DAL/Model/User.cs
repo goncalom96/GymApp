@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using RSGymPT_DAL.Interfaces;
 
 namespace RSGymPT_DAL.Model
 {
-    public class User
+    public class User : IUser
     {
 
         #region Enums

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using RSGymPT_Client.Repository;
 using RSGymPT_DAL.Model;
 
 namespace RSGymPT_Client.InputValidation
@@ -158,7 +159,7 @@ namespace RSGymPT_Client.InputValidation
                 }
                 else
                 {
-                    Console.WriteLine("\tInvalid! Name should have a maximum of 100 characters and numbers are not allowed.");
+                    Console.WriteLine("\tInvalid! Maximum of 100 characters and numbers are not allowed.");
                     Console.Write("\t>> ");
                 }
 
@@ -286,12 +287,14 @@ namespace RSGymPT_Client.InputValidation
 
         }
 
-        public static int ValidateLocationIntNumber()
+        public static int ValidateLocationIntNumber(User user)
         {
 
             bool validNumber = false;
 
             int locationID;
+
+            LocationRepository.ListLocations(user);
 
             Console.Write("Location ID: ");
 
@@ -301,6 +304,7 @@ namespace RSGymPT_Client.InputValidation
                 if (Int32.TryParse(Console.ReadLine(), out locationID) == true)
                 {
                     validNumber = true;
+                                       
                 }
                 else
                 {
@@ -482,7 +486,7 @@ namespace RSGymPT_Client.InputValidation
                 }
                 else
                 {
-                    Console.WriteLine("\tInvalid! Do you want to book a session in the past?");
+                    Console.WriteLine("\tInvalid! Check the date format.");
                     Console.Write("\t>> ");
                 }
 

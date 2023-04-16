@@ -1,29 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using static RSGymPT_DAL.Model.User;
+using RSGymPT_DAL.Interfaces;
 
 namespace RSGymPT_DAL.Model
 {
-    public class Request
+    public class Request : IRequest
     {
 
         // Tabela N (Client)
         // Tabela N (PersonalTrainer)
         
         #region Enums
-
         public enum EnumStatus
         {
             Booked = 1,
             Completed = 2,
             Cancelled = 3
         }
-
         #endregion
 
         #region Scalar Properties
@@ -47,15 +40,14 @@ namespace RSGymPT_DAL.Model
 
         [Display(Name = "Status")]
         [Required(ErrorMessage = "Status is required.")]
-        [EnumDataType(typeof(EnumStatus?))]
-        public EnumStatus? Status { get; set; }
+        [EnumDataType(typeof(EnumStatus))]
+        public EnumStatus Status { get; set; }
 
         [MaxLength(255, ErrorMessage = "255 character limit.")]
         [DisplayFormat(NullDisplayText = "-")]
         public string Comments { get; set; }
 
         #endregion
-
 
         #region Navigation Properties
 

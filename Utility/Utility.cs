@@ -19,7 +19,6 @@ namespace AppUtility
 
         #endregion
 
-        // Encoding da consola, por exemplo, preparar a consola para receber carateres especiais
         public static void SetUnicodeConsole()
         {
 
@@ -62,10 +61,10 @@ namespace AppUtility
         public static void TerminateConsole()
         {
 
-            Console.WriteLine("\n\nPrime qualquer tecla para saíres.");
+            Console.WriteLine("\n\nPress any key to leave.");
             Console.ReadKey();
-            Console.Clear();
-
+            //Console.Clear();
+            ClearConsoleWithEmptySpace();
         }
 
         public static void BlockSeparator(string separator)
@@ -79,7 +78,7 @@ namespace AppUtility
         {
             Console.WriteLine(value);
             Console.ReadKey();
-            Console.Clear();
+            ClearConsoleWithEmptySpace();
         }
 
         public static void OperationNotFoundAlert()
@@ -91,7 +90,6 @@ namespace AppUtility
         {
             Console.WriteLine(MsgOperationWithNumbers);
         }
-
 
         public static bool ValidateNumber0(double value)
         {
@@ -160,5 +158,12 @@ namespace AppUtility
             Console.WriteLine("Teste internal");
         } // sendo internal não é possível utilizar noutras assemblys
 
+        internal static void ClearConsoleWithEmptySpace()
+        {
+            for (int i = 0; i < 200; i++)
+                Console.WriteLine("");
+        }
+
     }
+
 }

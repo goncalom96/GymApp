@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using RSGymPT_DAL.Interfaces;
 
 namespace RSGymPT_DAL.Model
 {
-    public class PersonalTrainer
+    public class PersonalTrainer : IPersonalTrainer
     {
 
         // Tabela 1 (Request)

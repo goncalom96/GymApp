@@ -18,54 +18,77 @@ namespace RSGymPT_Client.Repository
 
             Console.Clear();
 
-            int clientID = Validation.ValidateClientIntNumber();
+            bool newRequestSucceed = false;
 
-            int personalTrainerID = Validation.ValidatePersonalTrainerIntNumber();
-
-            DateTime date = Validation.ValidateFutureDate();
-
-            DateTime hour = Validation.ValidateHour();
-
-            string comments = Validation.ValidateComments();
-
-            using (var db = new RSGymDBContext())
+            do
             {
 
-                var result1 = db.Client.FirstOrDefault(c => c.ClientID == clientID);
+                Utility.WriteTitle("Request - Create");
 
-                var result2 = db.PersonalTrainer.FirstOrDefault(p => p.PersonalTrainerID == personalTrainerID);
+                int clientID = Validation.ValidateClientIntNumber();
 
-                var result3 = db.Request.FirstOrDefault(r => r.Date == date && r.Hour == hour);
+                int personalTrainerID = Validation.ValidatePersonalTrainerIntNumber();
 
+                DateTime date = Validation.ValidateFutureDate();
 
-                if (result1 != null && result2 != null && result3 == null)
+                DateTime hour = Validation.ValidateHour();
+
+                string comments = Validation.ValidateComments();
+                
+
+                using (var db = new RSGymDBContext())
                 {
 
-                    ICollection<Request> requests = new Collection<Request>
+                    var result1 = db.Client.FirstOrDefault(c => c.ClientID == clientID);
+
+                    var result2 = db.PersonalTrainer.FirstOrDefault(p => p.PersonalTrainerID == personalTrainerID);
+
+                    var result3 = db.Request.FirstOrDefault(r => r.Date == date && r.Hour == hour && r.PersonalTrainer.PersonalTrainerID == personalTrainerID);
+                    
+
+                    if (result1 != null && result2 != null && result3 == null)
                     {
+
+                        newRequestSucceed = true;
+
+                        ICollection<Request> requests = new Collection<Request>
+                        {
                         new Request { ClientID = clientID, PersonalTrainerID = personalTrainerID, Date = date, Hour = hour, Status = Request.EnumStatus.Booked , Comments = comments}
-                    };
+                        };
 
-                    db.Request.AddRange(requests);
-                    db.SaveChanges();
+                        db.Request.AddRange(requests);
+                        db.SaveChanges();
 
-                    Console.WriteLine("\n\nRequest created with succeed!");
+                        Console.WriteLine("\n\nRequest created with succeed!");
+                    }
+                    else if (result1 == null)
+                    {
+                        Console.WriteLine("\n\nThis Client does not exist.");
+                        Console.ReadKey();
+                        Console.Clear();
+                    }
+                    else if (result2 == null)
+                    {
+                        Console.WriteLine("\n\nThis Personal Trainer does not exist.");
+                        Console.ReadKey();
+                        Console.Clear();
+                    }
+                    else if (result3 != null)
+                    {
+                        Console.WriteLine("\n\nThe Personal Trainer is already busy at this time. You need to choose another Date/Hour.");
+                        Console.ReadKey();
+                        Console.Clear();
+                    }
+                    else
+                    {
+                        Console.WriteLine("\n\nPlease confirm your details again.");
+                        Console.ReadKey();
+                        Console.Clear();
+                    }
+
                 }
-                else if(result3 != null)
-                {
-                    Console.WriteLine("\n\nYou need to choose another date.");
-                    Console.ReadKey();
-                    Console.Clear();
-                }
-                else
-                {
-                    Console.WriteLine("\n\nPlease confirm your details again.");
-                    Console.ReadKey();
-                    Console.Clear();
-                }
 
-            }
-
+            } while (!newRequestSucceed);
 
         }
 
@@ -84,7 +107,7 @@ namespace RSGymPT_Client.Repository
 
                 Utility.WriteTitle("Requests - Request History");
 
-                queryClients.ToList().ForEach(r => Utility.WriteMessage($"Client: {r.Client.Name}\nPersonal Trainer: {r.PersonalTrainer.Name}\nDate: {r.Date}\nHour: {r.Hour}\nStatus: {r.Status}\nComments: {r.Comments}\n\n", "", "\n"));
+                queryClients.ToList().ForEach(r => Utility.WriteMessage($"Client: {r.Client.Name}\nPersonal Trainer: {r.PersonalTrainer.Name}\nDate: {r.Date.ToShortDateString()}\nHour: {r.Hour.ToShortTimeString()}\nStatus: {r.Status}\nComments: {r.Comments}\n\n", "", "\n"));
 
             }
 

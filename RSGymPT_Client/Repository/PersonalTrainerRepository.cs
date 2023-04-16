@@ -33,7 +33,7 @@ namespace RSGymPT_Client.Repository
 
                 string address = Validation.ValidateAddress();
 
-                int locationID = Validation.ValidateLocationIntNumber();
+                int locationID = Validation.ValidateLocationIntNumber(user);
 
                 string phoneNumber = Validation.ValidatePhoneNumber();
 
@@ -66,7 +66,7 @@ namespace RSGymPT_Client.Repository
                     }
                     else if (result3 == null)
                     {
-                        Console.WriteLine("\n\nThis location does not exist.");
+                        Console.WriteLine("\n\nInvalid! This location does not exist.");
 
                         // Perguntar se quer adicionar?
                         // LocationRepository.CreateLocation(user);
@@ -76,7 +76,7 @@ namespace RSGymPT_Client.Repository
                     }
                     else
                     {
-                        Console.WriteLine("\n\nThis Personal Trainer already exists. Please confirm your details again.");
+                        Console.WriteLine("\n\nInvalid! This Personal Trainer already exists. Please confirm your details again.");
                         Console.ReadKey();
                         Console.Clear();
                     }

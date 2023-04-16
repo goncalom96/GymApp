@@ -52,6 +52,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Database\RSGymDBContext.cs" />
+    <Compile Include="Interfaces\IClient.cs" />
+    <Compile Include="Interfaces\ILocation.cs" />
+    <Compile Include="Interfaces\IPerson.cs" />
+    <Compile Include="Interfaces\IPersonalTrainer.cs" />
+    <Compile Include="Interfaces\IRequest.cs" />
+    <Compile Include="Interfaces\IUser.cs" />
     <Compile Include="Migrations\202304121515121_M01Initial.cs" />
     <Compile Include="Migrations\202304121515121_M01Initial.designer.cs">
       <DependentUpon>202304121515121_M01Initial.cs</DependentUpon>
@@ -78,9 +84,7 @@
       <Name>AppUtility</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202304121515121_M01Initial.resx">
       <DependentUpon>202304121515121_M01Initial.cs</DependentUpon>

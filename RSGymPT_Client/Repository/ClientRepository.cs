@@ -31,7 +31,7 @@ namespace RSGymPT_Client.Repository
 
                 string nif = Validation.ValidateNIF();
 
-                int locationID = Validation.ValidateLocationIntNumber();
+                int locationID = Validation.ValidateLocationIntNumber(user);
 
                 string address = Validation.ValidateAddress();
 
@@ -66,17 +66,18 @@ namespace RSGymPT_Client.Repository
                     }
                     else if (result2 == null)
                     {
-                        Console.WriteLine("\n\nThis location does not exist.");
+                        Console.WriteLine("\n\nInvalid! This location does not exist.");
 
                         // Perguntar se quer adicionar?
                         // LocationRepository.CreateLocation(user);
 
                         Console.ReadKey();
                         Console.Clear();
+
                     }
                     else
                     {
-                        Console.WriteLine("\n\nThis Client already exists. Please confirm your details again.");
+                        Console.WriteLine("\n\nInvalid! This Client already exists. Please confirm your details again.");
                         Console.ReadKey();
                         Console.Clear();
                     }
@@ -99,8 +100,8 @@ namespace RSGymPT_Client.Repository
 
                 Utility.WriteTitle("Clients - Update");
 
-                Console.Write("Confirm Client Name: ");
-                string name = Console.ReadLine();
+                Console.WriteLine("Validation data");
+                string name = Validation.ValidateName();
 
 
                 using (var db = new RSGymDBContext())
@@ -118,7 +119,7 @@ namespace RSGymPT_Client.Repository
 
                         DateTime dateBirth = Validation.ValidateDateBirth();
 
-                        int locationID = Validation.ValidateLocationIntNumber();
+                        int locationID = Validation.ValidateLocationIntNumber(user);
 
                         string address = Validation.ValidateAddress();
 
@@ -152,7 +153,7 @@ namespace RSGymPT_Client.Repository
                     }
                     else
                     {
-                        Console.WriteLine("\n\nPlease confirm your name.");
+                        Console.WriteLine("\n\nInvalid! Please confirm your name.");
                         Console.ReadKey();
                         Console.Clear();
                     }
@@ -163,7 +164,6 @@ namespace RSGymPT_Client.Repository
 
         }
 
-        
         public static void ListClients(User user)
         {
 
@@ -182,7 +182,6 @@ namespace RSGymPT_Client.Repository
             }
 
         }
-        
 
         public static void ChangeClientStatus(User user)
         {
@@ -195,8 +194,8 @@ namespace RSGymPT_Client.Repository
             {
                 Utility.WriteTitle("Clients - Update Status");
 
-                Console.Write("Confirm Client NIF: ");
-                string nif = Console.ReadLine();
+                Console.WriteLine("Validation data");
+                string nif = Validation.ValidateNIF();
 
 
                 using (var db = new RSGymDBContext())
@@ -212,13 +211,13 @@ namespace RSGymPT_Client.Repository
                         {
                             result.Active = false;
 
-                            Console.WriteLine($"\n\nUpdate done successfully. Now your have a new status\n\nActive: {result.Active}");
+                            Console.WriteLine($"\n\nClient updated with succeed! Now your have a new status\n\nActive: {result.Active}");
                         }
                         else
                         {
                             result.Active = true;
 
-                            Console.WriteLine($"\n\nUpdate done successfully. Now your have a new status\n\nActive: {result.Active}");
+                            Console.WriteLine($"\n\nClient updated with succeed! Now your have a new status\n\nActive: {result.Active}");
                         }
 
                         db.SaveChanges();
@@ -226,7 +225,7 @@ namespace RSGymPT_Client.Repository
                     }
                     else
                     {
-                        Console.WriteLine("\n\nThe NIF entered does not exist. Please confirm your details again.");
+                        Console.WriteLine("\n\nInvalid! The NIF entered does not exist. Please confirm your details again.");
                         Console.ReadKey();
                         Console.Clear();
                     }
@@ -245,9 +244,9 @@ namespace RSGymPT_Client.Repository
 
             ICollection<Client> clients = new Collection<Client>
             {
-                new Client { LocationID = 1, Name = "Client One", DateBirth = new DateTime (1996, 02, 26), NIF = "214456389", Address = "Rua do Client01", PhoneNumber = "919991872", Email = "client01@hotmail.com", Comments = "test1", Active = true},
-                new Client { LocationID = 2, Name = "Client Two", DateBirth = new DateTime (1990, 10, 02), NIF = "213459781", Address = "Rua do Client02", PhoneNumber = "964321942", Email = "client02@hotmail.com", Active = true},
-                new Client { LocationID = 3, Name = "Client Three", DateBirth = new DateTime (1988, 07, 22), NIF = "217458786", Address = "Rua do Client03", PhoneNumber = "931662873", Email = "client03@hotmail.com", Comments = "test3", Active = true},
+                new Client {  Name = "Client One", DateBirth = new DateTime (1996, 02, 26), NIF = "214456389", LocationID = 1, Address = "Rua do Client01", PhoneNumber = "919991872", Email = "client01@hotmail.com", Comments = "test1", Active = true},
+                new Client {  Name = "Client Two", DateBirth = new DateTime (1990, 10, 02), NIF = "213459781", LocationID = 2, Address = "Rua do Client02", PhoneNumber = "964321942", Email = "client02@hotmail.com", Active = true},
+                new Client {  Name = "Client Three", DateBirth = new DateTime (1988, 07, 22), NIF = "217458786", LocationID = 3, Address = "Rua do Client03", PhoneNumber = "931662873", Email = "client03@hotmail.com", Comments = "test3", Active = true},
             };
 
             using (var db = new RSGymDBContext())

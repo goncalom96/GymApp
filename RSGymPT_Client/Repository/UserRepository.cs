@@ -79,7 +79,7 @@ namespace RSGymPT_Client.Repository
 
                 Utility.WriteTitle("Users - All users");
 
-                queryUsers.ToList().ForEach(u => Utility.WriteMessage($"Username: {u.Username}\nCode: {u.UserCode}\nPassword: {u.Password}\nProfile: {u.Profile}\n\n", "", "\n"));
+                queryUsers.ToList().ForEach(u => Utility.WriteMessage($"Username: {u.Username}\nUserCode: {u.UserCode}\nPassword: {u.Password}\nProfile: {u.Profile}\n\n", "", "\n"));
 
             }
 
@@ -97,7 +97,7 @@ namespace RSGymPT_Client.Repository
 
                 Utility.WriteTitle("User - Update");
 
-                Console.Write("Confirm UserCode: ");
+                Console.WriteLine("Validation data");
                 string userCode = Validation.ValidateUserCode();
 
                 Console.Write("New password: ");
@@ -122,7 +122,7 @@ namespace RSGymPT_Client.Repository
                     }
                     else
                     {
-                        Console.WriteLine("\n\nPlease confirm your UserCode.");
+                        Console.WriteLine("\n\nInvalid! Please confirm your UserCode.");
                         Console.ReadKey();
                         Console.Clear();
                     }

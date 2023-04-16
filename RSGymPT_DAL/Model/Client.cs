@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using RSGymPT_DAL.Interfaces;
 
 namespace RSGymPT_DAL.Model
 {
-    public class Client
+    public class Client : IClient
     {
 
         // Tabela 1 (Request)

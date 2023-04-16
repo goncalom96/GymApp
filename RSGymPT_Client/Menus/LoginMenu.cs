@@ -77,16 +77,7 @@ namespace RSGymPT.Classes
 
                         User user = result;
 
-                        if (user.Profile == User.EnumProfile.admin)
-                        {
-
-                            NavigationMenu.MainMenuAdmin(user);
-
-                        }
-                        else
-                        {
-                            // ToDo: Meter menu colab
-                        }
+                        NavigationMenu.MainMenu(user);
 
                     }
                     else
@@ -170,7 +161,6 @@ namespace RSGymPT.Classes
             return answerConverted;
 
         }
-
 
         public static (string, string) ReadCredentials()
         {

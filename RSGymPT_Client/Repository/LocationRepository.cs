@@ -69,13 +69,10 @@ namespace RSGymPT_Client.Repository
             using (var db = new RSGymDBContext())
             {
 
-                var queryLocations = db.Location.Select(l => l).OrderBy(l => l.City);
+                var queryLocations = db.Location.Select(l => l).OrderBy(l => l.LocationID);
 
-                Console.Clear();
-
-                Utility.WriteTitle("Locations - All locations");
-
-                queryLocations.ToList().ForEach(l => Utility.WriteMessage($"Postal Code: {l.PostalCode}\nCity: {l.City}\n\n", "", "\n"));
+                Console.WriteLine("LIST OF LOCATIONS:");
+                queryLocations.ToList().ForEach(l => Utility.WriteMessage($"\tLocation ID: {l.LocationID} - Postal Code: {l.PostalCode} - City: {l.City}\n", "", ""));
 
             }
 
@@ -170,16 +167,10 @@ namespace RSGymPT_Client.Repository
             ICollection<Location> locations = new Collection<Location>
             {
                 new Location { PostalCode = "1700-306", City = "Lisboa"},
-                new Location { PostalCode = "1500-503", City = "Lisboa"},
-                new Location { PostalCode = "4000-996" , City = "Porto"},
                 new Location { PostalCode = "4049-019" , City = "Porto"},
-                new Location { PostalCode = "4700-442", City = "Braga"},
                 new Location { PostalCode = "4700-432", City = "Braga"},
-                new Location { PostalCode = "2520-420", City = "Peniche"},
                 new Location { PostalCode = "2520-400", City = "Peniche"},
-                new Location { PostalCode = "8500-058", City = "Portimão"},
                 new Location { PostalCode = "8500-290", City = "Portimão"},
-                new Location { PostalCode = "6000-034", City = "Castelo Branco"},
                 new Location { PostalCode = "6000-111", City = "Castelo Branco"}
             };
 
