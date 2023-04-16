@@ -7,13 +7,13 @@ namespace RSGymPT_DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class M02_UpField_DDC : IMigrationMetadata
+    public sealed partial class M1Initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(M02_UpField_DDC));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(M1Initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "202304152116071_M02_UpField_DDC"; }
+            get { return "202304161910415_M1Initial"; }
         }
         
         string IMigrationMetadata.Source

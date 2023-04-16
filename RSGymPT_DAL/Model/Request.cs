@@ -20,7 +20,6 @@ namespace RSGymPT_DAL.Model
         #endregion
 
         #region Scalar Properties
-
         // PK
         public int RequestID { get; set; }
 
@@ -31,12 +30,10 @@ namespace RSGymPT_DAL.Model
 
 
         [Required(ErrorMessage = "Date is required.")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime Date { get; set; }
 
         [Required(ErrorMessage = "Hour is required.")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:t}")]
-        public DateTime Hour { get; set; }
+        public TimeSpan Hour { get; set; }
 
         [Display(Name = "Status")]
         [Required(ErrorMessage = "Status is required.")]
@@ -46,14 +43,11 @@ namespace RSGymPT_DAL.Model
         [MaxLength(255, ErrorMessage = "255 character limit.")]
         [DisplayFormat(NullDisplayText = "-")]
         public string Comments { get; set; }
-
         #endregion
 
         #region Navigation Properties
-
         public virtual Client Client { get; set; }
         public virtual PersonalTrainer PersonalTrainer { get; set; }
-
         #endregion
 
     }

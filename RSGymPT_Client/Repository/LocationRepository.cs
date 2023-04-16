@@ -91,7 +91,7 @@ namespace RSGymPT_Client.Repository
                 Utility.WriteTitle("Locations - Update - New data");
 
                 Console.Write("Location ID: ");
-                bool tryParseLocation = Int16.TryParse(Console.ReadLine(), out Int16 locationID);
+                bool tryParseLocation = Int32.TryParse(Console.ReadLine(), out Int32 locationID);
 
                 Console.Write("Postal code: ");
                 string postalCode = Console.ReadLine();
@@ -140,7 +140,7 @@ namespace RSGymPT_Client.Repository
             Utility.WriteTitle("Locations - Delete");
 
             Console.Write("Location ID: ");
-            bool tryParseLocation = Int16.TryParse(Console.ReadLine(), out Int16 locationID);
+            bool tryParseLocation = Int32.TryParse(Console.ReadLine(), out Int32 locationID);
 
             using (var db = new RSGymDBContext())
             {

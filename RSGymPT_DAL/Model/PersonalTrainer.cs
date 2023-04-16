@@ -11,7 +11,6 @@ namespace RSGymPT_DAL.Model
         // Tabela N (Location)
 
         #region Scalar Properties
-
         // PK
         public int PersonalTrainerID { get; set; }
 
@@ -47,14 +46,11 @@ namespace RSGymPT_DAL.Model
         [EmailAddress(ErrorMessage = "Invalid email address.")]
         [StringLength(100, MinimumLength = 5, ErrorMessage = "5 to 100 character limit")]
         public string Email { get; set; }
-
         #endregion
 
         #region Navigation Properties
-
         public virtual Location Location { get; set; }
         public virtual ICollection<Request> Requests { get; set; }
-
         #endregion
 
     }

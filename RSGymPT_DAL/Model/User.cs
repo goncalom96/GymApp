@@ -7,17 +7,14 @@ namespace RSGymPT_DAL.Model
     {
 
         #region Enums
-
         public enum EnumProfile
         {
             admin = 1,
             colab = 2
         }
-
         #endregion
 
         #region Scalar Properties
-
         // PK
         public int UserID { get; set; }
 
@@ -37,7 +34,6 @@ namespace RSGymPT_DAL.Model
         [Required(ErrorMessage = "Profile is required.")]
         [EnumDataType(typeof(EnumProfile))]
         public EnumProfile Profile { get; set; }
-
         #endregion
 
     }

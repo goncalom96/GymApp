@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class M01Initial : DbMigration
+    public partial class M1Initial : DbMigration
     {
         public override void Up()
         {
@@ -13,7 +13,6 @@
                     {
                         ClientID = c.Int(nullable: false, identity: true),
                         LocationID = c.Int(nullable: false),
-                        PersonalTrainerID = c.Int(nullable: false),
                         Name = c.String(nullable: false, maxLength: 100),
                         DateBirth = c.DateTime(nullable: false),
                         NIF = c.String(nullable: false, maxLength: 9),
@@ -25,9 +24,7 @@
                     })
                 .PrimaryKey(t => t.ClientID)
                 .ForeignKey("dbo.Location", t => t.LocationID, cascadeDelete: true)
-                .ForeignKey("dbo.PersonalTrainer", t => t.PersonalTrainerID, cascadeDelete: true)
-                .Index(t => t.LocationID)
-                .Index(t => t.PersonalTrainerID);
+                .Index(t => t.LocationID);
             
             CreateTable(
                 "dbo.Location",
@@ -64,7 +61,7 @@
                         ClientID = c.Int(nullable: false),
                         PersonalTrainerID = c.Int(nullable: false),
                         Date = c.DateTime(nullable: false),
-                        Hour = c.DateTime(nullable: false),
+                        Hour = c.Time(nullable: false, precision: 7),
                         Status = c.Int(nullable: false),
                         Comments = c.String(maxLength: 255),
                     })
@@ -93,12 +90,10 @@
             DropForeignKey("dbo.Request", "PersonalTrainerID", "dbo.PersonalTrainer");
             DropForeignKey("dbo.Request", "ClientID", "dbo.Client");
             DropForeignKey("dbo.PersonalTrainer", "LocationID", "dbo.Location");
-            DropForeignKey("dbo.Client", "PersonalTrainerID", "dbo.PersonalTrainer");
             DropForeignKey("dbo.Client", "LocationID", "dbo.Location");
             DropIndex("dbo.Request", new[] { "PersonalTrainerID" });
             DropIndex("dbo.Request", new[] { "ClientID" });
             DropIndex("dbo.PersonalTrainer", new[] { "LocationID" });
-            DropIndex("dbo.Client", new[] { "PersonalTrainerID" });
             DropIndex("dbo.Client", new[] { "LocationID" });
             DropTable("dbo.User");
             DropTable("dbo.Request");

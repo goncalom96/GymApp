@@ -11,7 +11,6 @@ namespace RSGymPT_DAL.Model
         // Tabela 1 (Client)
 
         #region Scalar Properties
-
         // PK
         public int LocationID { get; set; }
 
@@ -25,15 +24,12 @@ namespace RSGymPT_DAL.Model
         [RegularExpression(@"^[^0-9]+$", ErrorMessage = "Numbers are not allowed in the name.")]
         [MaxLength(100, ErrorMessage = "100 character limit.")]
         public string City { get; set; }
-
         #endregion
-
 
         #region Navigation Properties
-
         public virtual ICollection<Client> Clients { get; set; }
         public virtual ICollection<PersonalTrainer> PersonalTrainers { get; set; }
-
         #endregion
+
     }
 }

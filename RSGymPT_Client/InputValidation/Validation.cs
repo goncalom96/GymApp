@@ -8,6 +8,8 @@ namespace RSGymPT_Client.InputValidation
     static class Validation
     {
 
+        // ToDo: Métodos que servem para validar os dados recebidos da consola
+
         #region User
         public static string ValidateUserName()
         {
@@ -495,19 +497,19 @@ namespace RSGymPT_Client.InputValidation
             return date;
         }
 
-        public static DateTime ValidateHour()
+        public static TimeSpan ValidateHour()
         {
 
             bool validHour = false;
 
-            DateTime hour;
+            TimeSpan hour;
 
             Console.Write("Hour (hh:mm): ");
 
             do
             {
 
-                if (DateTime.TryParse(Console.ReadLine(), out hour) == true)
+                if (TimeSpan.TryParse(Console.ReadLine(), out hour) == true)
                 {
                     validHour = true;
                 }

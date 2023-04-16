@@ -14,16 +14,20 @@ namespace RSGymPT_Client
 
             try
             {
+
+                // ToDo: Descrevi apenas o método do Create do Client e Personal Trainer pois usei a mesma abordagem para os restantes
                 
+                // Dados iniciais estão comentados e ainda vou lançar
                 #region Starting Data
                 /*
                 UserRepository.StartingUsers();
                 LocationRepository.StartingLocations();
                 PersonalTrainerRepository.StartingPersonalTrainers();
                 ClientRepository.StartingClients();
+                RequestRepository.StartingRequests();
                 */
                 #endregion
-                
+
                 LoginMenu.FirstMenu();
 
             }

@@ -12,7 +12,6 @@ namespace RSGymPT_DAL.Model
         // Tabela N (Location)
 
         #region Scalar Properties
-
         // PK
         public int ClientID { get; set; }
 
@@ -55,15 +54,11 @@ namespace RSGymPT_DAL.Model
 
         [Required]
         public bool Active { get; set; }
-
         #endregion
 
-
         #region Navigation Properties
-
         public virtual Location Location { get; set; }
         public virtual ICollection<Request> Requests { get; set; }
-
         #endregion
 
     }

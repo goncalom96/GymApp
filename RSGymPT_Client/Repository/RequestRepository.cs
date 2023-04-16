@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Xml.Linq;
 using AppUtility;
 using RSGymPT_Client.InputValidation;
 using RSGymPT_DAL.Database;
@@ -31,10 +32,10 @@ namespace RSGymPT_Client.Repository
 
                 DateTime date = Validation.ValidateFutureDate();
 
-                DateTime hour = Validation.ValidateHour();
+                TimeSpan hour = Validation.ValidateHour();
 
                 string comments = Validation.ValidateComments();
-                
+
 
                 using (var db = new RSGymDBContext())
                 {
@@ -44,7 +45,7 @@ namespace RSGymPT_Client.Repository
                     var result2 = db.PersonalTrainer.FirstOrDefault(p => p.PersonalTrainerID == personalTrainerID);
 
                     var result3 = db.Request.FirstOrDefault(r => r.Date == date && r.Hour == hour && r.PersonalTrainer.PersonalTrainerID == personalTrainerID);
-                    
+
 
                     if (result1 != null && result2 != null && result3 == null)
                     {
@@ -101,14 +102,34 @@ namespace RSGymPT_Client.Repository
             using (var db = new RSGymDBContext())
             {
 
-                var queryClients = db.Request.Select(r => r).OrderBy(r => r.Status).ThenBy(r => r.Date).ThenBy(r => r.Hour);
+                var queryRequests = db.Request.Select(r => r).OrderBy(r => r.Status).ThenBy(r => r.Date).ThenBy(r => r.Hour);
 
                 Console.Clear();
 
                 Utility.WriteTitle("Requests - Request History");
 
-                queryClients.ToList().ForEach(r => Utility.WriteMessage($"Client: {r.Client.Name}\nPersonal Trainer: {r.PersonalTrainer.Name}\nDate: {r.Date.ToShortDateString()}\nHour: {r.Hour.ToShortTimeString()}\nStatus: {r.Status}\nComments: {r.Comments}\n\n", "", "\n"));
+                queryRequests.ToList().ForEach(r => Utility.WriteMessage($"Client: {r.Client.Name}\nPersonal Trainer: {r.PersonalTrainer.Name}\nDate: {r.Date.ToShortDateString()}\nHour: {r.Hour}\nStatus: {r.Status}\nComments: {r.Comments}\n\n", "", "\n"));
 
+            }
+
+        }
+        #endregion
+
+        #region Starting Requests
+        public static void StartingRequests()
+        {
+
+            ICollection<Request> requests = new Collection<Request>
+            {
+                        new Request { ClientID = 1, PersonalTrainerID = 1, Date = new DateTime(2023, 5, 29), Hour = new TimeSpan(18, 0, 0), Status = Request.EnumStatus.Booked , Comments = "Treino de força"},
+                        new Request { ClientID = 2, PersonalTrainerID = 2, Date = new DateTime(2023, 7, 15), Hour = new TimeSpan(19, 0, 0), Status = Request.EnumStatus.Booked , Comments = "Treino de velocidade"},
+                        new Request { ClientID = 3, PersonalTrainerID = 1, Date = new DateTime(2023, 9, 5), Hour = new TimeSpan(17, 30, 0), Status = Request.EnumStatus.Booked , Comments = "Treino de resistência"}
+            };
+
+            using (var db = new RSGymDBContext())
+            {
+                db.Request.AddRange(requests);
+                db.SaveChanges();
             }
 
         }

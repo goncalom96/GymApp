@@ -10,7 +10,6 @@ namespace RSGymPT.Classes
     {
 
         #region Navigation Menu
-
         public static void MainMenu(User user)
         {
 
@@ -94,6 +93,8 @@ namespace RSGymPT.Classes
                                     break;
                                 case 3: // List
                                     ClientRepository.ListClients(user);
+                                    // ToDo: O tal problema manteve-se, a solução que adotei foi aumentar (através do TerminateConsole)
+                                    // o espaço entre listagens só para a consola ficar visualmente mais limpa
                                     Utility.TerminateConsole();
                                     break;
                                 case 4: // Active
@@ -184,11 +185,9 @@ namespace RSGymPT.Classes
             } while (value != 5);
 
         }
-
         #endregion
 
         #region Read Methods
-
         public static int ReadValues(User user)
         {
 
@@ -216,11 +215,9 @@ namespace RSGymPT.Classes
             return answerConverted;
 
         }
-
         #endregion
 
         #region Print Methods
-
         public static void PrintMenuOptions(User user)
         {
 
@@ -331,7 +328,6 @@ namespace RSGymPT.Classes
             }
 
         }
-
         #endregion
 
     }

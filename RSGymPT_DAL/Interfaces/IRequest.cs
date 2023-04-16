@@ -14,7 +14,7 @@ namespace RSGymPT_DAL.Interfaces
 
         DateTime Date { get; }
 
-        DateTime Hour { get; }
+        TimeSpan Hour { get; }
 
         EnumStatus Status { get; }
 

@@ -25,6 +25,8 @@ namespace RSGymPT_Client.Repository
 
                 Utility.WriteTitle("Personal Trainer - Create");
 
+                // Solicita ao utilizador que forneça os dados de cada propriedade do Personal Trainer
+
                 string codePT = Validation.ValidatePersonalTrainerCode();
 
                 string name = Validation.ValidateName();
@@ -43,12 +45,17 @@ namespace RSGymPT_Client.Repository
                 using (var db = new RSGymDBContext())
                 {
 
+                    // Verificação da existência do NIF, do PersonalTrainer e Location na BD
+
                     var result1 = db.PersonalTrainer.FirstOrDefault(p => p.NIF == nif);
 
                     var result2 = db.PersonalTrainer.FirstOrDefault(p => p.CodePT == codePT);
 
                     var result3 = db.Location.FirstOrDefault(l => l.LocationID == locationID);
 
+
+                    // Se não houver outro PT com o mesmo NIF, o mesmo CodePT e a localização existir na BD
+                    // É criado num novo Personal Trainer
                     if (result1 == null && result2 == null && result3 != null)
                     {
                         newPersonalTrainerSucceed = true;
@@ -68,7 +75,7 @@ namespace RSGymPT_Client.Repository
                     {
                         Console.WriteLine("\n\nInvalid! This location does not exist.");
 
-                        // Perguntar se quer adicionar?
+                        // Para melhorar esta parte podia perguntar ao utilizador se quer adicionar uma nova localicade
                         // LocationRepository.CreateLocation(user);
 
                         Console.ReadKey();
@@ -116,8 +123,8 @@ namespace RSGymPT_Client.Repository
 
             ICollection<PersonalTrainer> personalTrainers = new Collection<PersonalTrainer>
             {
-                new PersonalTrainer { CodePT = "PT01", Name = "TestePTOne", NIF = "288654647", LocationID = 4, Address = "Rua do PT01", PhoneNumber = "915673821", Email = "personaltrainer01@hotmail.com"},
-                new PersonalTrainer { CodePT = "PT02", Name = "TestePTTwo", NIF = "272653636", LocationID = 5, Address = "Rua do PT02", PhoneNumber = "962738521", Email = "personaltrainer02@hotmail.com"}
+                new PersonalTrainer { CodePT = "PT01", Name = "Bernardo Folhas", NIF = "288654647", LocationID = 4, Address = "Rua do BF", PhoneNumber = "915673821", Email = "bf_personaltrainer01@hotmail.com"},
+                new PersonalTrainer { CodePT = "PT02", Name = "Gonçalo Marques", NIF = "272653636", LocationID = 5, Address = "Rua do GM", PhoneNumber = "962738521", Email = "gm_personaltrainer02@hotmail.com"}
             };
 
             using (var db = new RSGymDBContext())

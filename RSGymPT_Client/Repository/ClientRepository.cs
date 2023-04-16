@@ -25,6 +25,9 @@ namespace RSGymPT_Client.Repository
 
                 Utility.WriteTitle("Client - Create");
 
+
+                // Solicita ao utilizador que forneça os dados de cada propriedade do Cliente
+
                 string name = Validation.ValidateName();
 
                 DateTime dateBirth = Validation.ValidateDateBirth();
@@ -45,11 +48,15 @@ namespace RSGymPT_Client.Repository
                 using (var db = new RSGymDBContext())
                 {
 
+                    // Verificação da existência do NIF e Location na BD
+
                     var result1 = db.Client.FirstOrDefault(c => c.NIF == nif);
 
                     var result2 = db.Location.FirstOrDefault(l => l.LocationID == locationID);
 
 
+                    // Se não houver outro cliente com o mesmo NIF e a localização existir na BD
+                    // É criado num novo Client
                     if (result1 == null && result2 != null)
                     {
                         newClientSucceed = true;
@@ -68,9 +75,8 @@ namespace RSGymPT_Client.Repository
                     {
                         Console.WriteLine("\n\nInvalid! This location does not exist.");
 
-                        // Perguntar se quer adicionar?
-                        // LocationRepository.CreateLocation(user);
-
+                        // Para melhorar esta parte podia perguntar ao utilizador se quer adicionar uma nova localicade
+                                // LocationRepository.CreateLocation(user);
                         Console.ReadKey();
                         Console.Clear();
 
@@ -238,15 +244,14 @@ namespace RSGymPT_Client.Repository
         #endregion
 
         #region Starting Clients
-
         public static void StartingClients()
         {
 
             ICollection<Client> clients = new Collection<Client>
             {
-                new Client {  Name = "Client One", DateBirth = new DateTime (1996, 02, 26), NIF = "214456389", LocationID = 1, Address = "Rua do Client01", PhoneNumber = "919991872", Email = "client01@hotmail.com", Comments = "test1", Active = true},
-                new Client {  Name = "Client Two", DateBirth = new DateTime (1990, 10, 02), NIF = "213459781", LocationID = 2, Address = "Rua do Client02", PhoneNumber = "964321942", Email = "client02@hotmail.com", Active = true},
-                new Client {  Name = "Client Three", DateBirth = new DateTime (1988, 07, 22), NIF = "217458786", LocationID = 3, Address = "Rua do Client03", PhoneNumber = "931662873", Email = "client03@hotmail.com", Comments = "test3", Active = true},
+                new Client {  Name = "Mariana Diniz", DateBirth = new DateTime (1996, 02, 26), NIF = "214456389", LocationID = 1, Address = "Rua do MD", PhoneNumber = "919991872", Email = "marianadiniz1@hotmail.com", Comments = "test1", Active = true},
+                new Client {  Name = "João Ribeiro", DateBirth = new DateTime (1990, 10, 02), NIF = "213459781", LocationID = 2, Address = "Rua do JR", PhoneNumber = "964321942", Email = "joaoribeiro@hotmail.com", Active = true},
+                new Client {  Name = "Paulo Vieira", DateBirth = new DateTime (1988, 07, 22), NIF = "217458786", LocationID = 3, Address = "Rua do PV", PhoneNumber = "931662873", Email = "paulovieira@hotmail.com", Comments = "test3", Active = true},
             };
 
             using (var db = new RSGymDBContext())
@@ -256,7 +261,6 @@ namespace RSGymPT_Client.Repository
             }
 
         }
-
         #endregion
 
     }
